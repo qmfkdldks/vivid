@@ -4,10 +4,15 @@ import { useInView } from 'react-intersection-observer'
 
 const variants = {
   visible: {
-    opacity: 0.3,
+    opacity: [1, 0, 1],
+    'font-weight': ['400', '600', '400'],
+    position: 'relative',
+    top: ['0px', '-20px', '0px'],
     transition: {
+      duration: 2,
       ease: 'backInOut',
-      duration: 2
+      loop: Infinity,
+      repeatDelay: 5
     }
   },
   hidden: { opacity: 1 }

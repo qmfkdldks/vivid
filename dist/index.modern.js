@@ -1,13 +1,11 @@
 import React__default, { forwardRef, createElement, useState, useCallback, useMemo } from 'react';
 import { withReact, Slate, Editable, useSlate } from 'slate-react';
-import { createEditor, Editor, Transforms, Text } from 'slate';
+import { createEditor, Editor, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { merge, get, isEmpty, map } from 'lodash';
-import Form from '@rjsf/core';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { get, isEmpty } from 'lodash';
 
 var styles = {"test":"_styles-module__test__3ybTi"};
 
@@ -457,10 +455,15 @@ const Toolbar = styled.div(_t3 || (_t3 = _`
 
 const variants = {
   visible: {
-    opacity: 0.3,
+    opacity: [1, 0, 1],
+    'font-weight': ['400', '600', '400'],
+    position: 'relative',
+    top: ['0px', '-20px', '0px'],
     transition: {
+      duration: 2,
       ease: 'backInOut',
-      duration: 2
+      loop: Infinity,
+      repeatDelay: 5
     }
   },
   hidden: {
@@ -480,74 +483,31 @@ const Fade = ({
   }, children);
 };
 
-const containerSchema = {
-  type: 'object',
-  title: 'Container',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        opacity: {
-          type: 'number',
-          default: 1
-        },
-        fontSize: {
-          type: 'array',
-          items: {
-            type: 'string'
-          },
-          default: ['0px', '55px']
-        },
-        transition: {
-          type: 'object',
-          properties: {
-            ease: {
-              type: 'string',
-              default: 'backInOut'
-            },
-            duration: {
-              type: 'number',
-              default: 1
-            }
-          }
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {}
-    }
-  }
-};
 const container = {
   visible: {
     opacity: 1,
     fontSize: ['0px', '55px'],
     transition: {
       ease: 'backInOut',
-      duration: 1
+      duration: 1,
+      loop: Infinity,
+      delay: 2
     }
   },
   hidden: {
     opacity: 0
   }
 };
-const schemas = {
-  containerVariants: containerSchema
-};
 
 const Ready = ({
   props,
-  containerVariants,
   children
 }) => {
   const [ref, inView] = useInView();
-  const mContainerVariants = merge(container, containerVariants);
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: mContainerVariants
+    variants: container
   }, children);
 };
 
@@ -575,72 +535,24 @@ const Shake = ({
   }, children);
 };
 
-const containerSchema$1 = {
-  type: 'object',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        transition: {
-          type: 'object',
-          properties: {
-            staggerChildren: {
-              type: 'number',
-              default: 0.3,
-              minimum: 0,
-              maximum: 5
-            }
-          }
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {}
-    }
-  }
-};
-const itemsSchema = {
-  type: 'object',
-  title: 'Items',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        color: {
-          type: 'string',
-          default: 'rgb(255,127,80)'
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {
-        color: {
-          type: 'string',
-          default: 'rgb(220, 220, 220)'
-        }
-      }
-    }
-  }
-};
-const schemas$1 = {
-  containerVariants: containerSchema$1,
-  itemsVariants: itemsSchema
-};
 const container$1 = {
   visible: {
     transition: {
-      staggerChildren: 0.3
+      staggerChildren: 0.5
     }
   },
   hidden: {}
 };
 const items = {
   visible: {
-    color: 'rgb(255,127,80)'
+    transition: {
+      ease: 'easeOut',
+      repeatDelay: 10,
+      yoyo: Infinity
+    },
+    color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    position: 'relative',
+    top: ['0px', '-2px', '0px']
   },
   hidden: {
     color: 'rgb(220, 220, 220)'
@@ -648,17 +560,14 @@ const items = {
 };
 
 const Gradient = ({
-  containerVariants,
-  itemsVariants,
+  color,
   children,
   vairant
 }) => {
   const [ref, inView] = useInView();
-  const mContainerVariants = merge(container$1, containerVariants);
-  const mItemsVariants = merge(items, itemsVariants);
   const letters = [...children].map((l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
     key: i,
-    variants: mItemsVariants
+    variants: items
   }, l));
   const currentVariant = vairant || (inView ? 'visible' : 'hidden');
   return /*#__PURE__*/React__default.createElement("span", {
@@ -666,14 +575,10 @@ const Gradient = ({
   }, /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: currentVariant,
-    variants: mContainerVariants
+    variants: container$1
   }, letters));
 };
 
-const schemaMap = {
-  ready: schemas,
-  gradient: schemas$1
-};
 const HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
@@ -726,8 +631,6 @@ const AnimatedTextEditor = () => {
   }, /*#__PURE__*/React__default.createElement(ListBullet, {
     size: "48"
   })), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "ready"
-  }, /*#__PURE__*/React__default.createElement(Ready, null, "Ready")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "shake"
   }, /*#__PURE__*/React__default.createElement(Shake, null, "Shake")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "fade"
@@ -830,34 +733,7 @@ const ActiveMark = ({
     ...marks
   } = children[0];
   console.log(marks);
-  return /*#__PURE__*/React__default.createElement("div", null, map(marks, (customVariant, animationKey) => map(schemaMap[animationKey], (jsonSchema, propName) => {
-    return /*#__PURE__*/React__default.createElement(Form, {
-      schema: jsonSchema,
-      onChange: ({
-        formData
-      }, e) => {
-        console.log(customVariant);
-        Transforms.setNodes(editor, {
-          [animationKey]: { ...customVariant,
-            [propName]: formData
-          }
-        }, {
-          at: selection,
-          match: n => Text.isText(n),
-          split: true
-        });
-      },
-      onSubmit: ({
-        formData
-      }, e) => {
-        console.log('submit');
-      },
-      onError: () => {
-        console.log('error');
-      },
-      formData: customVariant[propName]
-    });
-  })));
+  return null;
 };
 
 const Element = ({
@@ -964,23 +840,16 @@ const MarkButton = ({
 const initialValue = [{
   type: 'paragraph',
   children: [{
-    text: 'So are you happy now?',
-    colorize: true
+    text: `So are you happy now?
+Finally happy now are you?
+뭐 그대로야 난
+다 잃어버린 것 같아
+모든 게 맘대로 왔다가 인사도 없이`
   }, {
-    text: 'Finally happy now are you?'
-  }, {
-    text: '뭐 그대로야 난',
-    gradient: {}
-  }, {
-    text: '다'
-  }, {
-    text: '잃어버린 것',
+    text: `떠나`,
     fade: true
   }, {
-    text: '같아'
-  }, {
     text: `
-모든 게 맘대로 왔다가 인사도 없이 떠나
 이대로는 무엇도 사랑하고 싶지 않아
 다 해질 대로 해져버린
 기억 속을 여행해
@@ -989,9 +858,20 @@ const initialValue = [{
 정해진 이별 따위는 없어
 아름다웠던 그 기억에서 만나
 Forever young
-우우우 우우우우 우우우 우우우우
-Forever we young
-우우우 우우우우
+`
+  }, {
+    text: `우우우 우우우우 우우우 우우우우
+`,
+    gradient: {}
+  }, {
+    text: `Forever we young
+`
+  }, {
+    text: `우우우 우우우우
+`,
+    gradient: {}
+  }, {
+    text: `
 이런 악몽이라면 영영 깨지 않을게
 섬 그래 여긴 섬 서로가 만든 작은 섬
 예 음 forever young 영원이란 말은 모래성
@@ -1012,10 +892,20 @@ Forever we young
 우울한 결말 따위는 없어
 난 영원히 널 이 기억에서 만나
 Forever young
-우우우 우우우우 우우우 우우우우
-Forever we young
-우우우 우우우우
-이런 악몽이라면 영영 깨지 않을게`
+`
+  }, {
+    text: `우우우 우우우우 우우우 우우우우
+`,
+    gradient: {}
+  }, {
+    text: `Forever we young
+`
+  }, {
+    text: `우우우 우우우우 우우우 우우우우
+`,
+    gradient: {}
+  }, {
+    text: `이런 악몽이라면 영영 깨지 않을게`
   }]
 }];
 

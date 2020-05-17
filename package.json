@@ -51,7 +51,6 @@
     "dist"
   ],
   "dependencies": {
-    "@rjsf/core": "^2.0.0",
     "framer-motion": "^1.10.3",
     "lodash": "^4.17.15",
     "react-intersection-observer": "^8.26.2",

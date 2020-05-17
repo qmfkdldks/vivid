@@ -1,60 +1,11 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { merge } from 'lodash'
-
-const containerSchema = {
-  type: 'object',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        transition: {
-          type: 'object',
-          properties: {
-            staggerChildren: {
-              type: 'number',
-              default: 0.3,
-              minimum: 0,
-              maximum: 5
-            }
-          }
-        }
-      }
-    },
-    hidden: { type: 'object', title: 'hidden', properties: {} }
-  }
-}
-
-const itemsSchema = {
-  type: 'object',
-  title: 'Items',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        color: { type: 'string', default: 'rgb(255,127,80)' }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {
-        color: { type: 'string', default: 'rgb(220, 220, 220)' }
-      }
-    }
-  }
-}
-
-export const schemas = {
-  containerVariants: containerSchema,
-  itemsVariants: itemsSchema
-}
 
 const container = {
   visible: {
     transition: {
-      staggerChildren: 0.3
+      staggerChildren: 0.5
     }
   },
   hidden: {}
@@ -62,21 +13,25 @@ const container = {
 
 const items = {
   visible: {
-    color: 'rgb(255,127,80)'
+    transition: {
+      ease: 'easeOut',
+      repeatDelay: 10,
+      yoyo: Infinity
+    },
+    color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    position: 'relative',
+    top: ['0px', '-2px', '0px']
   },
   hidden: {
     color: 'rgb(220, 220, 220)'
   }
 }
 
-const Gradient = ({ containerVariants, itemsVariants, children, vairant }) => {
+const Gradient = ({ color, children, vairant }) => {
   const [ref, inView] = useInView()
 
-  const mContainerVariants = merge(container, containerVariants)
-  const mItemsVariants = merge(items, itemsVariants)
-
   const letters = [...children].map((l, i) => (
-    <motion.span key={i} variants={mItemsVariants}>
+    <motion.span key={i} variants={items}>
       {l}
     </motion.span>
   ))
@@ -84,11 +39,7 @@ const Gradient = ({ containerVariants, itemsVariants, children, vairant }) => {
   const currentVariant = vairant || (inView ? 'visible' : 'hidden')
   return (
     <span data-slate-string='true'>
-      <motion.span
-        ref={ref}
-        animate={currentVariant}
-        variants={mContainerVariants}
-      >
+      <motion.span ref={ref} animate={currentVariant} variants={container}>
         {letters}
       </motion.span>
     </span>

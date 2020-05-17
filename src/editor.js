@@ -14,17 +14,10 @@ import {
 import { Heading } from '@styled-icons/boxicons-regular/Heading'
 import { Button, Icon, Toolbar } from './components'
 import Fade from './animations/fade'
-import Ready, { schemas as readySchemas } from './animations/ready'
+import Ready from './animations/ready'
 import Shake from './animations/shake'
-import Gradient, { schemas as gradientSchemas } from './animations/gradient'
-import { get, map, isEmpty } from 'lodash'
-import Form from '@rjsf/core'
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const schemaMap = {
-  ready: readySchemas,
-  gradient: gradientSchemas
-}
+import Gradient from './animations/gradient'
+import { get, isEmpty } from 'lodash'
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -72,9 +65,6 @@ const AnimatedTextEditor = () => {
         <BlockButton format='bulleted-list'>
           <ListBullet size='48' />
         </BlockButton>
-        <MarkButton format='ready'>
-          <Ready>Ready</Ready>
-        </MarkButton>
         <MarkButton format='shake'>
           <Shake>Shake</Shake>
         </MarkButton>
@@ -178,40 +168,7 @@ const ActiveMark = ({ selectedString }) => {
 
   console.log(marks)
   // TODO get schema from map
-  return (
-    <div>
-      {map(marks, (customVariant, animationKey) =>
-        map(schemaMap[animationKey], (jsonSchema, propName) => {
-          return (
-            <Form
-              schema={jsonSchema}
-              onChange={({ formData }, e) => {
-                console.log(customVariant)
-                Transforms.setNodes(
-                  editor,
-                  {
-                    [animationKey]: { ...customVariant, [propName]: formData }
-                  },
-                  {
-                    at: selection,
-                    match: (n) => Text.isText(n),
-                    split: true
-                  }
-                )
-              }}
-              onSubmit={({ formData }, e) => {
-                console.log('submit')
-              }}
-              onError={() => {
-                console.log('error')
-              }}
-              formData={customVariant[propName]}
-            />
-          )
-        })
-      )}
-    </div>
-  )
+  return null
 }
 
 const Element = ({ attributes, children, element }) => {
@@ -305,15 +262,16 @@ const initialValue = [
   {
     type: 'paragraph',
     children: [
-      { text: 'So are you happy now?', colorize: true },
-      { text: 'Finally happy now are you?' },
-      { text: '뭐 그대로야 난', gradient: {} },
-      { text: '다' },
-      { text: '잃어버린 것', fade: true },
-      { text: '같아' },
+      {
+        text: `So are you happy now?
+Finally happy now are you?
+뭐 그대로야 난
+다 잃어버린 것 같아
+모든 게 맘대로 왔다가 인사도 없이`
+      },
+      { text: `떠나`, fade: true },
       {
         text: `
-모든 게 맘대로 왔다가 인사도 없이 떠나
 이대로는 무엇도 사랑하고 싶지 않아
 다 해질 대로 해져버린
 기억 속을 여행해
@@ -322,9 +280,24 @@ const initialValue = [
 정해진 이별 따위는 없어
 아름다웠던 그 기억에서 만나
 Forever young
-우우우 우우우우 우우우 우우우우
-Forever we young
-우우우 우우우우
+`
+      },
+      {
+        text: `우우우 우우우우 우우우 우우우우
+`,
+        gradient: {}
+      },
+      {
+        text: `Forever we young
+`
+      },
+      {
+        text: `우우우 우우우우
+`,
+        gradient: {}
+      },
+      {
+        text: `
 이런 악몽이라면 영영 깨지 않을게
 섬 그래 여긴 섬 서로가 만든 작은 섬
 예 음 forever young 영원이란 말은 모래성
@@ -345,10 +318,24 @@ Forever we young
 우울한 결말 따위는 없어
 난 영원히 널 이 기억에서 만나
 Forever young
-우우우 우우우우 우우우 우우우우
-Forever we young
-우우우 우우우우
-이런 악몽이라면 영영 깨지 않을게`
+`
+      },
+      {
+        text: `우우우 우우우우 우우우 우우우우
+`,
+        gradient: {}
+      },
+      {
+        text: `Forever we young
+`
+      },
+      {
+        text: `우우우 우우우우 우우우 우우우우
+`,
+        gradient: {}
+      },
+      {
+        text: `이런 악몽이라면 영영 깨지 않을게`
       }
     ]
   }

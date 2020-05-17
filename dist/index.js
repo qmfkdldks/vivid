@@ -9,28 +9,8 @@ var styled = _interopDefault(require('styled-components'));
 var framerMotion = require('framer-motion');
 var reactIntersectionObserver = require('react-intersection-observer');
 var lodash = require('lodash');
-var Form = _interopDefault(require('@rjsf/core'));
-require('bootstrap/dist/css/bootstrap.min.css');
 
 var styles = {"test":"_styles-module__test__3ybTi"};
-
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
@@ -508,10 +488,15 @@ var Toolbar = styled.div(_templateObject3());
 
 var variants = {
   visible: {
-    opacity: 0.3,
+    opacity: [1, 0, 1],
+    'font-weight': ['400', '600', '400'],
+    position: 'relative',
+    top: ['0px', '-20px', '0px'],
     transition: {
+      duration: 2,
       ease: 'backInOut',
-      duration: 2
+      loop: Infinity,
+      repeatDelay: 5
     }
   },
   hidden: {
@@ -533,76 +518,33 @@ var Fade = function Fade(_ref) {
   }, children);
 };
 
-var containerSchema = {
-  type: 'object',
-  title: 'Container',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        opacity: {
-          type: 'number',
-          "default": 1
-        },
-        fontSize: {
-          type: 'array',
-          items: {
-            type: 'string'
-          },
-          "default": ['0px', '55px']
-        },
-        transition: {
-          type: 'object',
-          properties: {
-            ease: {
-              type: 'string',
-              "default": 'backInOut'
-            },
-            duration: {
-              type: 'number',
-              "default": 1
-            }
-          }
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {}
-    }
-  }
-};
 var container = {
   visible: {
     opacity: 1,
     fontSize: ['0px', '55px'],
     transition: {
       ease: 'backInOut',
-      duration: 1
+      duration: 1,
+      loop: Infinity,
+      delay: 2
     }
   },
   hidden: {
     opacity: 0
   }
 };
-var schemas = {
-  containerVariants: containerSchema
-};
 
 var Ready = function Ready(_ref) {
-  var containerVariants = _ref.containerVariants,
-      children = _ref.children;
+  var children = _ref.children;
 
   var _useInView = reactIntersectionObserver.useInView(),
       ref = _useInView[0],
       inView = _useInView[1];
 
-  var mContainerVariants = lodash.merge(container, containerVariants);
   return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: mContainerVariants
+    variants: container
   }, children);
 };
 
@@ -632,72 +574,24 @@ var Shake = function Shake(_ref) {
   }, children);
 };
 
-var containerSchema$1 = {
-  type: 'object',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        transition: {
-          type: 'object',
-          properties: {
-            staggerChildren: {
-              type: 'number',
-              "default": 0.3,
-              minimum: 0,
-              maximum: 5
-            }
-          }
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {}
-    }
-  }
-};
-var itemsSchema = {
-  type: 'object',
-  title: 'Items',
-  properties: {
-    visible: {
-      type: 'object',
-      properties: {
-        color: {
-          type: 'string',
-          "default": 'rgb(255,127,80)'
-        }
-      }
-    },
-    hidden: {
-      type: 'object',
-      title: 'hidden',
-      properties: {
-        color: {
-          type: 'string',
-          "default": 'rgb(220, 220, 220)'
-        }
-      }
-    }
-  }
-};
-var schemas$1 = {
-  containerVariants: containerSchema$1,
-  itemsVariants: itemsSchema
-};
 var container$1 = {
   visible: {
     transition: {
-      staggerChildren: 0.3
+      staggerChildren: 0.5
     }
   },
   hidden: {}
 };
 var items = {
   visible: {
-    color: 'rgb(255,127,80)'
+    transition: {
+      ease: 'easeOut',
+      repeatDelay: 10,
+      yoyo: Infinity
+    },
+    color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    position: 'relative',
+    top: ['0px', '-2px', '0px']
   },
   hidden: {
     color: 'rgb(220, 220, 220)'
@@ -705,21 +599,17 @@ var items = {
 };
 
 var Gradient = function Gradient(_ref) {
-  var containerVariants = _ref.containerVariants,
-      itemsVariants = _ref.itemsVariants,
-      children = _ref.children,
+  var children = _ref.children,
       vairant = _ref.vairant;
 
   var _useInView = reactIntersectionObserver.useInView(),
       ref = _useInView[0],
       inView = _useInView[1];
 
-  var mContainerVariants = lodash.merge(container$1, containerVariants);
-  var mItemsVariants = lodash.merge(items, itemsVariants);
   var letters = [].concat(children).map(function (l, i) {
     return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
       key: i,
-      variants: mItemsVariants
+      variants: items
     }, l);
   });
   var currentVariant = vairant || (inView ? 'visible' : 'hidden');
@@ -728,14 +618,10 @@ var Gradient = function Gradient(_ref) {
   }, /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
     ref: ref,
     animate: currentVariant,
-    variants: mContainerVariants
+    variants: container$1
   }, letters));
 };
 
-var schemaMap = {
-  ready: schemas,
-  gradient: schemas$1
-};
 var HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
@@ -805,8 +691,6 @@ var AnimatedTextEditor = function AnimatedTextEditor() {
   }, /*#__PURE__*/React__default.createElement(ListBullet, {
     size: "48"
   })), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "ready"
-  }, /*#__PURE__*/React__default.createElement(Ready, null, "Ready")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "shake"
   }, /*#__PURE__*/React__default.createElement(Shake, null, "Shake")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "fade"
@@ -913,39 +797,13 @@ var ActiveMark = function ActiveMark(_ref) {
       marks = _objectWithoutPropertiesLoose(_children$, ["text"]);
 
   console.log(marks);
-  return /*#__PURE__*/React__default.createElement("div", null, lodash.map(marks, function (customVariant, animationKey) {
-    return lodash.map(schemaMap[animationKey], function (jsonSchema, propName) {
-      return /*#__PURE__*/React__default.createElement(Form, {
-        schema: jsonSchema,
-        onChange: function onChange(_ref2, e) {
-          var _extends2, _Transforms$setNodes;
-
-          var formData = _ref2.formData;
-          console.log(customVariant);
-          slate.Transforms.setNodes(editor, (_Transforms$setNodes = {}, _Transforms$setNodes[animationKey] = _extends(_extends({}, customVariant), {}, (_extends2 = {}, _extends2[propName] = formData, _extends2)), _Transforms$setNodes), {
-            at: selection,
-            match: function match(n) {
-              return slate.Text.isText(n);
-            },
-            split: true
-          });
-        },
-        onSubmit: function onSubmit(_ref3, e) {
-          console.log('submit');
-        },
-        onError: function onError() {
-          console.log('error');
-        },
-        formData: customVariant[propName]
-      });
-    });
-  }));
+  return null;
 };
 
-var Element = function Element(_ref4) {
-  var attributes = _ref4.attributes,
-      children = _ref4.children,
-      element = _ref4.element;
+var Element = function Element(_ref2) {
+  var attributes = _ref2.attributes,
+      children = _ref2.children,
+      element = _ref2.element;
 
   switch (element.type) {
     case 'block-quote':
@@ -971,10 +829,10 @@ var Element = function Element(_ref4) {
   }
 };
 
-var Leaf = function Leaf(_ref5) {
-  var attributes = _ref5.attributes,
-      children = _ref5.children,
-      leaf = _ref5.leaf;
+var Leaf = function Leaf(_ref3) {
+  var attributes = _ref3.attributes,
+      children = _ref3.children,
+      leaf = _ref3.leaf;
 
   if (leaf.ready) {
     children = /*#__PURE__*/React__default.createElement(Ready, leaf.ready, children);
@@ -1011,9 +869,9 @@ var Leaf = function Leaf(_ref5) {
   return /*#__PURE__*/React__default.createElement("span", attributes, children);
 };
 
-var BlockButton = function BlockButton(_ref6) {
-  var format = _ref6.format,
-      children = _ref6.children;
+var BlockButton = function BlockButton(_ref4) {
+  var format = _ref4.format,
+      children = _ref4.children;
   var editor = slateReact.useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isBlockActive(editor, format),
@@ -1024,11 +882,11 @@ var BlockButton = function BlockButton(_ref6) {
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
 
-var MarkButton = function MarkButton(_ref7) {
-  var format = _ref7.format,
-      children = _ref7.children,
-      onMouseEnter = _ref7.onMouseEnter,
-      onMouseLeave = _ref7.onMouseLeave;
+var MarkButton = function MarkButton(_ref5) {
+  var format = _ref5.format,
+      children = _ref5.children,
+      onMouseEnter = _ref5.onMouseEnter,
+      onMouseLeave = _ref5.onMouseLeave;
   var editor = slateReact.useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isMarkActive(editor, format),
@@ -1044,22 +902,32 @@ var MarkButton = function MarkButton(_ref7) {
 var initialValue = [{
   type: 'paragraph',
   children: [{
-    text: 'So are you happy now?',
-    colorize: true
+    text: "So are you happy now?\nFinally happy now are you?\n\uBB50 \uADF8\uB300\uB85C\uC57C \uB09C\n\uB2E4 \uC783\uC5B4\uBC84\uB9B0 \uAC83 \uAC19\uC544\n\uBAA8\uB4E0 \uAC8C \uB9D8\uB300\uB85C \uC654\uB2E4\uAC00 \uC778\uC0AC\uB3C4 \uC5C6\uC774"
   }, {
-    text: 'Finally happy now are you?'
-  }, {
-    text: '뭐 그대로야 난',
-    gradient: {}
-  }, {
-    text: '다'
-  }, {
-    text: '잃어버린 것',
+    text: "\uB5A0\uB098",
     fade: true
   }, {
-    text: '같아'
+    text: "\n\uC774\uB300\uB85C\uB294 \uBB34\uC5C7\uB3C4 \uC0AC\uB791\uD558\uACE0 \uC2F6\uC9C0 \uC54A\uC544\n\uB2E4 \uD574\uC9C8 \uB300\uB85C \uD574\uC838\uBC84\uB9B0\n\uAE30\uC5B5 \uC18D\uC744 \uC5EC\uD589\uD574\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC774\uBCC4 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n"
   }, {
-    text: "\n\uBAA8\uB4E0 \uAC8C \uB9D8\uB300\uB85C \uC654\uB2E4\uAC00 \uC778\uC0AC\uB3C4 \uC5C6\uC774 \uB5A0\uB098\n\uC774\uB300\uB85C\uB294 \uBB34\uC5C7\uB3C4 \uC0AC\uB791\uD558\uACE0 \uC2F6\uC9C0 \uC54A\uC544\n\uB2E4 \uD574\uC9C8 \uB300\uB85C \uD574\uC838\uBC84\uB9B0\n\uAE30\uC5B5 \uC18D\uC744 \uC5EC\uD589\uD574\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC774\uBCC4 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\nForever we young\n\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C\n\uC12C \uADF8\uB798 \uC5EC\uAE34 \uC12C \uC11C\uB85C\uAC00 \uB9CC\uB4E0 \uC791\uC740 \uC12C\n\uC608 \uC74C forever young \uC601\uC6D0\uC774\uB780 \uB9D0\uC740 \uBAA8\uB798\uC131\n\uC791\uBCC4\uC740 \uB9C8\uCE58 \uC7AC\uB09C\uBB38\uC790 \uAC19\uC9C0\n\uADF8\uB9AC\uC6C0\uACFC \uAC19\uC774 \uB9DE\uC774\uD558\uB294 \uC544\uCE68\n\uC11C\uB85C\uAC00 \uC774 \uC601\uAC81\uC744 \uC9C0\uB098\n\uAF2D \uC774 \uC12C\uC5D0\uC11C \uB2E4\uC2DC \uB9CC\uB098\n\uC9C0\uB098\uB4EF \uB0A0 \uC704\uB85C\uD558\uB358 \uB204\uAD6C\uC758 \uB9D0\uB300\uB85C \uACE0\uC791\n\uD55C \uBF18\uC9DC\uB9AC \uCD94\uC5B5\uC744 \uC78A\uB294 \uAC8C \uCC38 \uC27D\uC9C0 \uC54A\uC544\n\uC2DC\uAC04\uC774 \uC9C0\uB098\uB3C4 \uC5EC\uC804\uD788\n\uB0A0 \uBD99\uB4DC\uB294 \uADF8\uACF3\uC5D0\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC548\uB155 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\n\uC6B0\uB9AC\uB294 \uC11C\uB85C\uB97C \uBCA0\uACE0 \uB204\uC6CC\n\uC2AC\uD504\uC9C0 \uC54A\uC740 \uC774\uC57C\uAE30\uB97C \uB098\uB220\n\uC6B0\uC6B8\uD55C \uACB0\uB9D0 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uB09C \uC601\uC6D0\uD788 \uB110 \uC774 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\nForever we young\n\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C"
+    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
+    gradient: {}
+  }, {
+    text: "Forever we young\n"
+  }, {
+    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
+    gradient: {}
+  }, {
+    text: "\n\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C\n\uC12C \uADF8\uB798 \uC5EC\uAE34 \uC12C \uC11C\uB85C\uAC00 \uB9CC\uB4E0 \uC791\uC740 \uC12C\n\uC608 \uC74C forever young \uC601\uC6D0\uC774\uB780 \uB9D0\uC740 \uBAA8\uB798\uC131\n\uC791\uBCC4\uC740 \uB9C8\uCE58 \uC7AC\uB09C\uBB38\uC790 \uAC19\uC9C0\n\uADF8\uB9AC\uC6C0\uACFC \uAC19\uC774 \uB9DE\uC774\uD558\uB294 \uC544\uCE68\n\uC11C\uB85C\uAC00 \uC774 \uC601\uAC81\uC744 \uC9C0\uB098\n\uAF2D \uC774 \uC12C\uC5D0\uC11C \uB2E4\uC2DC \uB9CC\uB098\n\uC9C0\uB098\uB4EF \uB0A0 \uC704\uB85C\uD558\uB358 \uB204\uAD6C\uC758 \uB9D0\uB300\uB85C \uACE0\uC791\n\uD55C \uBF18\uC9DC\uB9AC \uCD94\uC5B5\uC744 \uC78A\uB294 \uAC8C \uCC38 \uC27D\uC9C0 \uC54A\uC544\n\uC2DC\uAC04\uC774 \uC9C0\uB098\uB3C4 \uC5EC\uC804\uD788\n\uB0A0 \uBD99\uB4DC\uB294 \uADF8\uACF3\uC5D0\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC548\uB155 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\n\uC6B0\uB9AC\uB294 \uC11C\uB85C\uB97C \uBCA0\uACE0 \uB204\uC6CC\n\uC2AC\uD504\uC9C0 \uC54A\uC740 \uC774\uC57C\uAE30\uB97C \uB098\uB220\n\uC6B0\uC6B8\uD55C \uACB0\uB9D0 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uB09C \uC601\uC6D0\uD788 \uB110 \uC774 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n"
+  }, {
+    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
+    gradient: {}
+  }, {
+    text: "Forever we young\n"
+  }, {
+    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
+    gradient: {}
+  }, {
+    text: "\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C"
   }]
 }];
 
