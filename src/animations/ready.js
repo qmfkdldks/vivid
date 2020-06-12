@@ -30,4 +30,6 @@ const Ready = ({ props, children }) => {
   )
 }
 
+Ready.displayName = 'Ready'
+
 export default Ready

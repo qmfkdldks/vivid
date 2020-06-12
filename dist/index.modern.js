@@ -2,10 +2,10 @@ import React__default, { forwardRef, createElement, useState, useCallback, useMe
 import { withReact, Slate, Editable, useSlate } from 'slate-react';
 import { createEditor, Editor, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
-import styled from 'styled-components';
+import { times, random, isEmpty, keys } from 'lodash';
 import { motion } from 'framer-motion';
+import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
-import { get, isEmpty } from 'lodash';
 
 var styles = {"test":"_styles-module__test__3ybTi"};
 
@@ -453,7 +453,85 @@ const Toolbar = styled.div(_t3 || (_t3 = _`
   }
 `));
 
+let _$1 = t => t,
+    _t$1;
 const variants = {
+  visible: {
+    scaleX: [1, 2, 1],
+    transition: {
+      ease: 'easeInOut',
+      duration: 0.7,
+      type: 'inertia',
+      velocity: 50
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+const Chuck = ({
+  props,
+  children
+}) => {
+  const [ref, inView] = useInView();
+  return /*#__PURE__*/React__default.createElement(Word, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: variants,
+    initial: {
+      scaleX: 1
+    }
+  }, children);
+};
+
+const Word = styled(motion.span)(_t$1 || (_t$1 = _$1`
+  display: inline-block;
+  font-weight: 600;
+  font-size: 30px;
+`));
+Chuck.displayName = 'Chuck';
+
+let _$2 = t => t,
+    _t$2;
+const variants$1 = {
+  visible: {
+    scale: 1,
+    'text-shadow': ['-1px 10px 1px #B5B5B5', '0px 0px 0px #B5B5B5'],
+    transition: {
+      duration: 0.7,
+      type: 'spring',
+      damping: 10
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+const Dung = ({
+  props,
+  children
+}) => {
+  const [ref, inView] = useInView();
+  return /*#__PURE__*/React__default.createElement(Word$1, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: variants$1,
+    initial: {
+      scale: 2
+    }
+  }, children);
+};
+
+const Word$1 = styled(motion.span)(_t$2 || (_t$2 = _$2`
+  display: inline-block;
+  font-weight: 600;
+  font-size: 30px;
+`));
+Dung.displayName = 'Dung';
+
+const variants$2 = {
   visible: {
     opacity: [1, 0, 1],
     'font-weight': ['400', '600', '400'],
@@ -479,11 +557,169 @@ const Fade = ({
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: variants
+    variants: variants$2
   }, children);
 };
 
+Fade.displayName = 'Fade';
+
 const container = {
+  visible: {
+    transition: {
+      staggerChildren: 0.3
+    }
+  },
+  hidden: {}
+};
+const items = {
+  visible: {
+    transition: {
+      repeatDelay: 10,
+      loop: Infinity
+    },
+    color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    'font-weight': ['400', '600', '400'],
+    position: 'relative',
+    top: ['0px', '-5px', '0px']
+  },
+  hidden: {
+    color: 'rgb(220, 220, 220)'
+  }
+};
+
+const Gradient = ({
+  color,
+  children,
+  vairant
+}) => {
+  const [ref, inView] = useInView();
+  const letters = [...children].map((l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
+    key: i,
+    variants: items
+  }, l));
+  const currentVariant = vairant || (inView ? 'visible' : 'hidden');
+  return /*#__PURE__*/React__default.createElement("span", {
+    "data-slate-string": "true"
+  }, /*#__PURE__*/React__default.createElement(motion.span, {
+    ref: ref,
+    animate: currentVariant,
+    variants: container
+  }, letters));
+};
+
+Gradient.displayName = 'Gradient';
+
+let _$3 = t => t,
+    _t$3;
+const variants$3 = {
+  visible: {
+    opacity: [0, 1],
+    top: 0,
+    transition: {
+      ease: 'easeIn',
+      duration: 0.1,
+      type: 'spring',
+      damping: 12,
+      mass: 1,
+      stiffness: 350
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+const Kung = ({
+  meta: _meta = {},
+  selectVariant,
+  children
+}) => {
+  return /*#__PURE__*/React__default.createElement(Word$2, {
+    animate: selectVariant && selectVariant(_meta),
+    variants: variants$3,
+    initial: {
+      top: '-50%'
+    }
+  }, children);
+};
+
+const Word$2 = styled(motion.span)(_t$3 || (_t$3 = _$3`
+  position: relative;
+  font-weight: 600;
+  font-size: 30px;
+`));
+Kung.displayName = 'Kung';
+
+var Heart = forwardRef(function (props, ref) {
+    var attrs = {
+        "fill": "currentColor",
+        "xmlns": "http://www.w3.org/2000/svg",
+    };
+    return (createElement(StyledIconBase, __assign({ iconAttrs: attrs, iconVerticalAlign: "middle", iconViewBox: "0 0 24 24" }, props, { ref: ref }),
+        createElement("path", { d: "M20.205 4.791a5.938 5.938 0 00-4.209-1.754A5.906 5.906 0 0012 4.595a5.904 5.904 0 00-3.996-1.558 5.942 5.942 0 00-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z", key: "k0" })));
+});
+Heart.displayName = 'Heart';
+
+let _$4 = t => t,
+    _t$4;
+const container$1 = {
+  visible: {
+    transition: {}
+  },
+  hidden: {}
+};
+const items$1 = {
+  visible: i => ({
+    transition: {
+      repeatDelay: 1,
+      loop: Infinity,
+      ease: 'easeIn'
+    },
+    opacity: [0, 1, 0],
+    position: 'relative',
+    color: '#ef476f',
+    top: [`-${random(10, 0)}px`, `${random(5, -20)}px`]
+  }),
+  hidden: {}
+};
+
+const Love = ({
+  props,
+  children
+}) => {
+  const [ref, inView] = useInView();
+  const currentVariant = inView ? 'visible' : 'hidden';
+  const hearts = times(5, (l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
+    key: i,
+    variants: items$1,
+    custom: i
+  }, /*#__PURE__*/React__default.createElement(Icon$1, {
+    width: 10
+  })));
+  return /*#__PURE__*/React__default.createElement("span", {
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React__default.createElement(motion.span, {
+    style: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      textAlign: 'center'
+    },
+    ref: ref,
+    animate: currentVariant,
+    variants: container$1
+  }, hearts), children);
+};
+
+Love.displayName = 'Love';
+const Icon$1 = styled(Heart)(_t$4 || (_t$4 = _$4`
+  color: 'red';
+`));
+
+const container$2 = {
   visible: {
     opacity: 1,
     fontSize: ['0px', '55px'],
@@ -507,11 +743,13 @@ const Ready = ({
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: container
+    variants: container$2
   }, children);
 };
 
-const variants$1 = {
+Ready.displayName = 'Ready';
+
+const variants$4 = {
   visible: {
     transform: 'rotate(45deg)',
     transition: {
@@ -531,53 +769,48 @@ const Shake = ({
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: variants$1
+    variants: variants$4
   }, children);
 };
 
-const container$1 = {
+Shake.displayName = 'Shake';
+
+const container$3 = {
   visible: {
+    'background-image': ['linear-gradient(to right, #30CFD0 0%, #330867 100%)', 'linear-gradient(to right, #330867 0%, #30CFD0 100%)', 'linear-gradient(to right, #30CFD0 0%, #330867 100%)'],
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
     transition: {
-      staggerChildren: 0.5
+      loop: Infinity,
+      repeatDelay: 0.1
     }
   },
   hidden: {}
 };
-const items = {
-  visible: {
-    transition: {
-      ease: 'easeOut',
-      repeatDelay: 10,
-      yoyo: Infinity
-    },
-    color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
-    position: 'relative',
-    top: ['0px', '-2px', '0px']
-  },
-  hidden: {
-    color: 'rgb(220, 220, 220)'
-  }
-};
 
-const Gradient = ({
-  color,
-  children,
-  vairant
+const Shine = ({
+  props,
+  children
 }) => {
   const [ref, inView] = useInView();
-  const letters = [...children].map((l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
-    key: i,
-    variants: items
-  }, l));
-  const currentVariant = vairant || (inView ? 'visible' : 'hidden');
-  return /*#__PURE__*/React__default.createElement("span", {
-    "data-slate-string": "true"
-  }, /*#__PURE__*/React__default.createElement(motion.span, {
+  return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
-    animate: currentVariant,
-    variants: container$1
-  }, letters));
+    animate: inView ? 'visible' : 'hidden',
+    variants: container$3,
+    style: {}
+  }, children);
 };
+
+Shine.displayName = 'Shine';
+
+let _$5 = t => t,
+    _t$5;
+
+const Word$3 = styled(motion.span)(_t$5 || (_t$5 = _$5`
+  display: inline-block;
+  font-weight: 600;
+  font-size: 30px;
+`));
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -587,12 +820,19 @@ const HOTKEYS = {
 };
 const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
-const AnimatedTextEditor = () => {
+const AnimatedTextEditor = ({
+  getMarkMeta,
+  selectVariant,
+  initialValue,
+  onEditorReady
+}) => {
   const [value, setValue] = useState(initialValue);
   const [buttonState, setButtonState] = useState({});
   const [selectedString, setSelectedString] = useState({});
   const renderElement = useCallback(props => /*#__PURE__*/React__default.createElement(Element, props), []);
-  const renderLeaf = useCallback(props => /*#__PURE__*/React__default.createElement(Leaf, props), []);
+  const renderLeaf = useCallback(props => /*#__PURE__*/React__default.createElement(Leaf, Object.assign({}, props, {
+    selectVariant: selectVariant
+  })), [selectVariant]);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
   return /*#__PURE__*/React__default.createElement(Slate, {
     editor: editor,
@@ -631,24 +871,11 @@ const AnimatedTextEditor = () => {
   }, /*#__PURE__*/React__default.createElement(ListBullet, {
     size: "48"
   })), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "shake"
-  }, /*#__PURE__*/React__default.createElement(Shake, null, "Shake")), /*#__PURE__*/React__default.createElement(MarkButton, {
+    getMarkMeta: getMarkMeta,
+    format: "kung"
+  }, /*#__PURE__*/React__default.createElement(Kung, null, "Kung")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "fade"
-  }, /*#__PURE__*/React__default.createElement(Fade, null, "Fade")), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "gradient",
-    onMouseEnter: () => {
-      setButtonState({
-        gradient: 'visible'
-      });
-    },
-    onMouseLeave: () => {
-      setButtonState({
-        gradient: 'hidden'
-      });
-    }
-  }, /*#__PURE__*/React__default.createElement(Gradient, {
-    vairant: get(buttonState, 'gradient', 'hidden')
-  }, "Gradient")), /*#__PURE__*/React__default.createElement(ActiveMark, {
+  }, /*#__PURE__*/React__default.createElement(Fade, null, "Fade")), /*#__PURE__*/React__default.createElement(ActiveMark, {
     selectedString: selectedString,
     setSelectedString: setSelectedString
   })), /*#__PURE__*/React__default.createElement(Editable, {
@@ -694,13 +921,13 @@ const toggleBlock = (editor, format) => {
   }
 };
 
-const toggleMark = (editor, format) => {
+const toggleMark = (editor, format, meta) => {
   const isActive = isMarkActive(editor, format);
 
   if (isActive) {
     Editor.removeMark(editor, format);
   } else {
-    Editor.addMark(editor, format, {});
+    Editor.addMark(editor, format, meta);
   }
 };
 
@@ -768,23 +995,17 @@ const Element = ({
 const Leaf = ({
   attributes,
   children,
-  leaf
+  leaf,
+  selectVariant
 }) => {
-  if (leaf.ready) {
-    children = /*#__PURE__*/React__default.createElement(Ready, leaf.ready, children);
-  }
-
-  if (leaf.shake) {
-    children = /*#__PURE__*/React__default.createElement(Shake, leaf.shake, children);
-  }
-
-  if (leaf.fade) {
-    children = /*#__PURE__*/React__default.createElement(Fade, leaf.fade, children);
-  }
-
-  if (leaf.gradient) {
-    children = /*#__PURE__*/React__default.createElement(Gradient, leaf.gradient, leaf.text);
-  }
+  [Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(Tag => {
+    if (keys(leaf).includes(Tag.displayName.toLowerCase())) {
+      children = /*#__PURE__*/React__default.createElement(Tag, {
+        selectVariant: selectVariant,
+        meta: leaf[Tag.displayName.toLowerCase()]
+      }, children);
+    }
+  });
 
   if (leaf.bold) {
     children = /*#__PURE__*/React__default.createElement("b", null, children);
@@ -823,7 +1044,8 @@ const MarkButton = ({
   format,
   children,
   onMouseEnter,
-  onMouseLeave
+  onMouseLeave,
+  getMarkMeta: _getMarkMeta = () => ({})
 }) => {
   const editor = useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
@@ -832,82 +1054,10 @@ const MarkButton = ({
     onMouseLeave: onMouseLeave,
     onMouseDown: event => {
       event.preventDefault();
-      toggleMark(editor, format);
+      toggleMark(editor, format, _getMarkMeta());
     }
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
-
-const initialValue = [{
-  type: 'paragraph',
-  children: [{
-    text: `So are you happy now?
-Finally happy now are you?
-뭐 그대로야 난
-다 잃어버린 것 같아
-모든 게 맘대로 왔다가 인사도 없이`
-  }, {
-    text: `떠나`,
-    fade: true
-  }, {
-    text: `
-이대로는 무엇도 사랑하고 싶지 않아
-다 해질 대로 해져버린
-기억 속을 여행해
-우리는 오렌지 태양 아래
-그림자 없이 함께 춤을 춰
-정해진 이별 따위는 없어
-아름다웠던 그 기억에서 만나
-Forever young
-`
-  }, {
-    text: `우우우 우우우우 우우우 우우우우
-`,
-    gradient: {}
-  }, {
-    text: `Forever we young
-`
-  }, {
-    text: `우우우 우우우우
-`,
-    gradient: {}
-  }, {
-    text: `
-이런 악몽이라면 영영 깨지 않을게
-섬 그래 여긴 섬 서로가 만든 작은 섬
-예 음 forever young 영원이란 말은 모래성
-작별은 마치 재난문자 같지
-그리움과 같이 맞이하는 아침
-서로가 이 영겁을 지나
-꼭 이 섬에서 다시 만나
-지나듯 날 위로하던 누구의 말대로 고작
-한 뼘짜리 추억을 잊는 게 참 쉽지 않아
-시간이 지나도 여전히
-날 붙드는 그곳에
-우리는 오렌지 태양 아래
-그림자 없이 함께 춤을 춰
-정해진 안녕 따위는 없어
-아름다웠던 그 기억에서 만나
-우리는 서로를 베고 누워
-슬프지 않은 이야기를 나눠
-우울한 결말 따위는 없어
-난 영원히 널 이 기억에서 만나
-Forever young
-`
-  }, {
-    text: `우우우 우우우우 우우우 우우우우
-`,
-    gradient: {}
-  }, {
-    text: `Forever we young
-`
-  }, {
-    text: `우우우 우우우우 우우우 우우우우
-`,
-    gradient: {}
-  }, {
-    text: `이런 악몽이라면 영영 깨지 않을게`
-  }]
-}];
 
 const ExampleComponent = ({
   text

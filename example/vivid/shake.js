@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
+import styled from 'styled-components'
 
 const variants = {
   visible: {
@@ -8,25 +9,27 @@ const variants = {
     transition: {
       type: 'spring',
       damping: 0.5,
-      duration: 2
+      duration: 2,
+      loop: Infinity,
+      repeatDelay: 3
     }
-  },
-  hidden: {}
+  }
 }
 
-const Shake = ({ props, children }) => {
+const Shake = ({ children }) => {
   const [ref, inView] = useInView()
 
   return (
-    <motion.span
-      ref={ref}
-      animate={inView ? 'visible' : 'hidden'}
-      variants={variants}
-    >
+    <Word ref={ref} animate={inView ? 'visible' : 'hidden'} variants={variants}>
       {children}
-    </motion.span>
+    </Word>
   )
 }
+
+const Word = styled(motion.span)`
+  display: inline-block;
+  transform-origin: center;
+`
 
 Shake.displayName = 'Shake'
 

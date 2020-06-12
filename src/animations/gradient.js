@@ -5,7 +5,7 @@ import { useInView } from 'react-intersection-observer'
 const container = {
   visible: {
     transition: {
-      staggerChildren: 0.5
+      staggerChildren: 0.3
     }
   },
   hidden: {}
@@ -14,13 +14,13 @@ const container = {
 const items = {
   visible: {
     transition: {
-      ease: 'easeOut',
       repeatDelay: 10,
-      yoyo: Infinity
+      loop: Infinity
     },
     color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    'font-weight': ['400', '600', '400'],
     position: 'relative',
-    top: ['0px', '-2px', '0px']
+    top: ['0px', '-5px', '0px']
   },
   hidden: {
     color: 'rgb(220, 220, 220)'
@@ -45,5 +45,7 @@ const Gradient = ({ color, children, vairant }) => {
     </span>
   )
 }
+
+Gradient.displayName = 'Gradient'
 
 export default Gradient

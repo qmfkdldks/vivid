@@ -2,36 +2,32 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-const variants = {
+const container = {
   visible: {
-    opacity: [1, 0, 1],
-    'font-weight': ['400', '600', '400'],
-    position: 'relative',
-    top: ['0px', '-20px', '0px'],
+    fontSize: '15px',
     transition: {
       duration: 2,
-      ease: 'backInOut',
       loop: Infinity,
-      repeatDelay: 5
+      repeatDelay: 3
     }
   },
-  hidden: { opacity: 1 }
+  hidden: {}
 }
 
-const Fade = ({ props, children }) => {
+const Minimize = ({ children }) => {
   const [ref, inView] = useInView()
 
   return (
     <motion.span
       ref={ref}
       animate={inView ? 'visible' : 'hidden'}
-      variants={variants}
+      variants={container}
     >
       {children}
     </motion.span>
   )
 }
 
-Fade.displayName = 'Fade'
+Minimize.displayName = 'Minimize'
 
-export default Fade
+export default Minimize

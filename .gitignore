@@ -1,6 +1,7 @@
 .vscode/
 node_modules/
 example/node_modules/
+example/.next/
 *.tgz
 npm-debug.log*
 yarn-debug.log*

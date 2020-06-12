@@ -1,8 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import isHotkey from 'is-hotkey'
 import { Editable, withReact, useSlate, Slate } from 'slate-react'
-import { Editor, Transforms, createEditor, Text } from 'slate'
+import { Editor, Transforms, createEditor } from 'slate'
 import { withHistory } from 'slate-history'
+import { get, isEmpty, keys, contains } from 'lodash'
+import { useAnimation } from 'framer-motion'
 import {
   Bold,
   Italic,
@@ -13,11 +15,17 @@ import {
 } from '@styled-icons/foundation'
 import { Heading } from '@styled-icons/boxicons-regular/Heading'
 import { Button, Icon, Toolbar } from './components'
-import Fade from './animations/fade'
-import Ready from './animations/ready'
-import Shake from './animations/shake'
-import Gradient from './animations/gradient'
-import { get, isEmpty } from 'lodash'
+import {
+  Fade,
+  Ready,
+  Shake,
+  Gradient,
+  Love,
+  Shine,
+  Kung,
+  Chuck,
+  Dung
+} from './animations'
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -28,14 +36,26 @@ const HOTKEYS = {
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
-const AnimatedTextEditor = () => {
+const AnimatedTextEditor = ({
+  getMarkMeta,
+  selectVariant,
+  initialValue,
+  onEditorReady
+}) => {
   const [value, setValue] = useState(initialValue)
   const [buttonState, setButtonState] = useState({})
   // const [animationState, setAnimationState] = useState({})
   const [selectedString, setSelectedString] = useState({})
 
+  // Animation Controller
+  // const animationControl = useAnimation()
+  // onEditorReady && onEditorReady(animationControl)
+
   const renderElement = useCallback((props) => <Element {...props} />, [])
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
+  const renderLeaf = useCallback(
+    (props) => <Leaf {...props} selectVariant={selectVariant} />,
+    [selectVariant]
+  )
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
   return (
@@ -65,24 +85,11 @@ const AnimatedTextEditor = () => {
         <BlockButton format='bulleted-list'>
           <ListBullet size='48' />
         </BlockButton>
-        <MarkButton format='shake'>
-          <Shake>Shake</Shake>
+        <MarkButton getMarkMeta={getMarkMeta} format='kung'>
+          <Kung>Kung</Kung>
         </MarkButton>
         <MarkButton format='fade'>
           <Fade>Fade</Fade>
-        </MarkButton>
-        <MarkButton
-          format='gradient'
-          onMouseEnter={() => {
-            setButtonState({ gradient: 'visible' })
-          }}
-          onMouseLeave={() => {
-            setButtonState({ gradient: 'hidden' })
-          }}
-        >
-          <Gradient vairant={get(buttonState, 'gradient', 'hidden')}>
-            Gradient
-          </Gradient>
         </MarkButton>
         <ActiveMark
           selectedString={selectedString}
@@ -134,13 +141,13 @@ const toggleBlock = (editor, format) => {
   }
 }
 
-const toggleMark = (editor, format) => {
+const toggleMark = (editor, format, meta) => {
   const isActive = isMarkActive(editor, format)
 
   if (isActive) {
     Editor.removeMark(editor, format)
   } else {
-    Editor.addMark(editor, format, {})
+    Editor.addMark(editor, format, meta)
   }
 }
 
@@ -190,22 +197,21 @@ const Element = ({ attributes, children, element }) => {
   }
 }
 
-const Leaf = ({ attributes, children, leaf }) => {
-  if (leaf.ready) {
-    children = <Ready {...leaf.ready}>{children}</Ready>
-  }
-
-  if (leaf.shake) {
-    children = <Shake {...leaf.shake}>{children}</Shake>
-  }
-
-  if (leaf.fade) {
-    children = <Fade {...leaf.fade}>{children}</Fade>
-  }
-
-  if (leaf.gradient) {
-    children = <Gradient {...leaf.gradient}>{leaf.text}</Gradient>
-  }
+const Leaf = ({ attributes, children, leaf, selectVariant }) => {
+  ;[Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(
+    (Tag) => {
+      if (keys(leaf).includes(Tag.displayName.toLowerCase())) {
+        children = (
+          <Tag
+            selectVariant={selectVariant}
+            meta={leaf[Tag.displayName.toLowerCase()]}
+          >
+            {children}
+          </Tag>
+        )
+      }
+    }
+  )
 
   if (leaf.bold) {
     children = <b>{children}</b>
@@ -241,7 +247,13 @@ const BlockButton = ({ format, children }) => {
   )
 }
 
-const MarkButton = ({ format, children, onMouseEnter, onMouseLeave }) => {
+const MarkButton = ({
+  format,
+  children,
+  onMouseEnter,
+  onMouseLeave,
+  getMarkMeta = () => ({})
+}) => {
   const editor = useSlate()
   return (
     <Button
@@ -250,95 +262,12 @@ const MarkButton = ({ format, children, onMouseEnter, onMouseLeave }) => {
       onMouseLeave={onMouseLeave}
       onMouseDown={(event) => {
         event.preventDefault()
-        toggleMark(editor, format)
+        toggleMark(editor, format, getMarkMeta())
       }}
     >
       <Icon>{children}</Icon>
     </Button>
   )
 }
-
-const initialValue = [
-  {
-    type: 'paragraph',
-    children: [
-      {
-        text: `So are you happy now?
-Finally happy now are you?
-뭐 그대로야 난
-다 잃어버린 것 같아
-모든 게 맘대로 왔다가 인사도 없이`
-      },
-      { text: `떠나`, fade: true },
-      {
-        text: `
-이대로는 무엇도 사랑하고 싶지 않아
-다 해질 대로 해져버린
-기억 속을 여행해
-우리는 오렌지 태양 아래
-그림자 없이 함께 춤을 춰
-정해진 이별 따위는 없어
-아름다웠던 그 기억에서 만나
-Forever young
-`
-      },
-      {
-        text: `우우우 우우우우 우우우 우우우우
-`,
-        gradient: {}
-      },
-      {
-        text: `Forever we young
-`
-      },
-      {
-        text: `우우우 우우우우
-`,
-        gradient: {}
-      },
-      {
-        text: `
-이런 악몽이라면 영영 깨지 않을게
-섬 그래 여긴 섬 서로가 만든 작은 섬
-예 음 forever young 영원이란 말은 모래성
-작별은 마치 재난문자 같지
-그리움과 같이 맞이하는 아침
-서로가 이 영겁을 지나
-꼭 이 섬에서 다시 만나
-지나듯 날 위로하던 누구의 말대로 고작
-한 뼘짜리 추억을 잊는 게 참 쉽지 않아
-시간이 지나도 여전히
-날 붙드는 그곳에
-우리는 오렌지 태양 아래
-그림자 없이 함께 춤을 춰
-정해진 안녕 따위는 없어
-아름다웠던 그 기억에서 만나
-우리는 서로를 베고 누워
-슬프지 않은 이야기를 나눠
-우울한 결말 따위는 없어
-난 영원히 널 이 기억에서 만나
-Forever young
-`
-      },
-      {
-        text: `우우우 우우우우 우우우 우우우우
-`,
-        gradient: {}
-      },
-      {
-        text: `Forever we young
-`
-      },
-      {
-        text: `우우우 우우우우 우우우 우우우우
-`,
-        gradient: {}
-      },
-      {
-        text: `이런 악몽이라면 영영 깨지 않을게`
-      }
-    ]
-  }
-]
 
 export default AnimatedTextEditor

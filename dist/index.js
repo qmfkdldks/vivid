@@ -5,12 +5,30 @@ var React__default = _interopDefault(React);
 var slateReact = require('slate-react');
 var slate = require('slate');
 var slateHistory = require('slate-history');
-var styled = _interopDefault(require('styled-components'));
-var framerMotion = require('framer-motion');
-var reactIntersectionObserver = require('react-intersection-observer');
 var lodash = require('lodash');
+var framerMotion = require('framer-motion');
+var styled = _interopDefault(require('styled-components'));
+var reactIntersectionObserver = require('react-intersection-observer');
 
 var styles = {"test":"_styles-module__test__3ybTi"};
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
 
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
@@ -486,7 +504,95 @@ var Button = styled.a(_templateObject(), function (_ref) {
 var Icon = styled.span(_templateObject2());
 var Toolbar = styled.div(_templateObject3());
 
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
 var variants = {
+  visible: {
+    scaleX: [1, 2, 1],
+    transition: {
+      ease: 'easeInOut',
+      duration: 0.7,
+      type: 'inertia',
+      velocity: 50
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+var Chuck = function Chuck(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  return /*#__PURE__*/React__default.createElement(Word, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: variants,
+    initial: {
+      scaleX: 1
+    }
+  }, children);
+};
+
+var Word = styled(framerMotion.motion.span)(_templateObject$1());
+Chuck.displayName = 'Chuck';
+
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var variants$1 = {
+  visible: {
+    scale: 1,
+    'text-shadow': ['-1px 10px 1px #B5B5B5', '0px 0px 0px #B5B5B5'],
+    transition: {
+      duration: 0.7,
+      type: 'spring',
+      damping: 10
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+var Dung = function Dung(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  return /*#__PURE__*/React__default.createElement(Word$1, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: variants$1,
+    initial: {
+      scale: 2
+    }
+  }, children);
+};
+
+var Word$1 = styled(framerMotion.motion.span)(_templateObject$2());
+Dung.displayName = 'Dung';
+
+var variants$2 = {
   visible: {
     opacity: [1, 0, 1],
     'font-weight': ['400', '600', '400'],
@@ -514,70 +620,16 @@ var Fade = function Fade(_ref) {
   return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
-    variants: variants
+    variants: variants$2
   }, children);
 };
+
+Fade.displayName = 'Fade';
 
 var container = {
   visible: {
-    opacity: 1,
-    fontSize: ['0px', '55px'],
     transition: {
-      ease: 'backInOut',
-      duration: 1,
-      loop: Infinity,
-      delay: 2
-    }
-  },
-  hidden: {
-    opacity: 0
-  }
-};
-
-var Ready = function Ready(_ref) {
-  var children = _ref.children;
-
-  var _useInView = reactIntersectionObserver.useInView(),
-      ref = _useInView[0],
-      inView = _useInView[1];
-
-  return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
-    ref: ref,
-    animate: inView ? 'visible' : 'hidden',
-    variants: container
-  }, children);
-};
-
-var variants$1 = {
-  visible: {
-    transform: 'rotate(45deg)',
-    transition: {
-      type: 'spring',
-      damping: 0.5,
-      duration: 2
-    }
-  },
-  hidden: {}
-};
-
-var Shake = function Shake(_ref) {
-  var children = _ref.children;
-
-  var _useInView = reactIntersectionObserver.useInView(),
-      ref = _useInView[0],
-      inView = _useInView[1];
-
-  return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
-    ref: ref,
-    animate: inView ? 'visible' : 'hidden',
-    variants: variants$1
-  }, children);
-};
-
-var container$1 = {
-  visible: {
-    transition: {
-      staggerChildren: 0.5
+      staggerChildren: 0.3
     }
   },
   hidden: {}
@@ -585,13 +637,13 @@ var container$1 = {
 var items = {
   visible: {
     transition: {
-      ease: 'easeOut',
       repeatDelay: 10,
-      yoyo: Infinity
+      loop: Infinity
     },
     color: ['rgb(0, 0, 0)', 'rgb(255,127,80)', 'rgb(0,0,0)'],
+    'font-weight': ['400', '600', '400'],
     position: 'relative',
-    top: ['0px', '-2px', '0px']
+    top: ['0px', '-5px', '0px']
   },
   hidden: {
     color: 'rgb(220, 220, 220)'
@@ -618,9 +670,237 @@ var Gradient = function Gradient(_ref) {
   }, /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
     ref: ref,
     animate: currentVariant,
-    variants: container$1
+    variants: container
   }, letters));
 };
+
+Gradient.displayName = 'Gradient';
+
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n  position: relative;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var variants$3 = {
+  visible: {
+    opacity: [0, 1],
+    top: 0,
+    transition: {
+      ease: 'easeIn',
+      duration: 0.1,
+      type: 'spring',
+      damping: 12,
+      mass: 1,
+      stiffness: 350
+    }
+  },
+  hidden: {
+    opacity: 1
+  }
+};
+
+var Kung = function Kung(_ref) {
+  var _ref$meta = _ref.meta,
+      meta = _ref$meta === void 0 ? {} : _ref$meta,
+      selectVariant = _ref.selectVariant,
+      children = _ref.children;
+  return /*#__PURE__*/React__default.createElement(Word$2, {
+    animate: selectVariant && selectVariant(meta),
+    variants: variants$3,
+    initial: {
+      top: '-50%'
+    }
+  }, children);
+};
+
+var Word$2 = styled(framerMotion.motion.span)(_templateObject$3());
+Kung.displayName = 'Kung';
+
+var Heart = React.forwardRef(function (props, ref) {
+    var attrs = {
+        "fill": "currentColor",
+        "xmlns": "http://www.w3.org/2000/svg",
+    };
+    return (React.createElement(StyledIconBase, __assign({ iconAttrs: attrs, iconVerticalAlign: "middle", iconViewBox: "0 0 24 24" }, props, { ref: ref }),
+        React.createElement("path", { d: "M20.205 4.791a5.938 5.938 0 00-4.209-1.754A5.906 5.906 0 0012 4.595a5.904 5.904 0 00-3.996-1.558 5.942 5.942 0 00-4.213 1.758c-2.353 2.363-2.352 6.059.002 8.412L12 21.414l8.207-8.207c2.354-2.353 2.355-6.049-.002-8.416z", key: "k0" })));
+});
+Heart.displayName = 'Heart';
+
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n  color: 'red';\n"]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var container$1 = {
+  visible: {
+    transition: {}
+  },
+  hidden: {}
+};
+var items$1 = {
+  visible: function visible(i) {
+    return {
+      transition: {
+        repeatDelay: 1,
+        loop: Infinity,
+        ease: 'easeIn'
+      },
+      opacity: [0, 1, 0],
+      position: 'relative',
+      color: '#ef476f',
+      top: ["-" + lodash.random(10, 0) + "px", lodash.random(5, -20) + "px"]
+    };
+  },
+  hidden: {}
+};
+
+var Love = function Love(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  var currentVariant = inView ? 'visible' : 'hidden';
+  var hearts = lodash.times(5, function (l, i) {
+    return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
+      key: i,
+      variants: items$1,
+      custom: i
+    }, /*#__PURE__*/React__default.createElement(Icon$1, {
+      width: 10
+    }));
+  });
+  return /*#__PURE__*/React__default.createElement("span", {
+    style: {
+      position: 'relative'
+    }
+  }, /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
+    style: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      textAlign: 'center'
+    },
+    ref: ref,
+    animate: currentVariant,
+    variants: container$1
+  }, hearts), children);
+};
+
+Love.displayName = 'Love';
+var Icon$1 = styled(Heart)(_templateObject$4());
+
+var container$2 = {
+  visible: {
+    opacity: 1,
+    fontSize: ['0px', '55px'],
+    transition: {
+      ease: 'backInOut',
+      duration: 1,
+      loop: Infinity,
+      delay: 2
+    }
+  },
+  hidden: {
+    opacity: 0
+  }
+};
+
+var Ready = function Ready(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: container$2
+  }, children);
+};
+
+Ready.displayName = 'Ready';
+
+var variants$4 = {
+  visible: {
+    transform: 'rotate(45deg)',
+    transition: {
+      type: 'spring',
+      damping: 0.5,
+      duration: 2
+    }
+  },
+  hidden: {}
+};
+
+var Shake = function Shake(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: variants$4
+  }, children);
+};
+
+Shake.displayName = 'Shake';
+
+var container$3 = {
+  visible: {
+    'background-image': ['linear-gradient(to right, #30CFD0 0%, #330867 100%)', 'linear-gradient(to right, #330867 0%, #30CFD0 100%)', 'linear-gradient(to right, #30CFD0 0%, #330867 100%)'],
+    '-webkit-background-clip': 'text',
+    '-webkit-text-fill-color': 'transparent',
+    transition: {
+      loop: Infinity,
+      repeatDelay: 0.1
+    }
+  },
+  hidden: {}
+};
+
+var Shine = function Shine(_ref) {
+  var children = _ref.children;
+
+  var _useInView = reactIntersectionObserver.useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  return /*#__PURE__*/React__default.createElement(framerMotion.motion.span, {
+    ref: ref,
+    animate: inView ? 'visible' : 'hidden',
+    variants: container$3,
+    style: {}
+  }, children);
+};
+
+Shine.displayName = 'Shine';
+
+function _templateObject$5() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+var Word$3 = styled(framerMotion.motion.span)(_templateObject$5());
 
 var HOTKEYS = {
   'mod+b': 'bold',
@@ -630,14 +910,16 @@ var HOTKEYS = {
 };
 var LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
-var AnimatedTextEditor = function AnimatedTextEditor() {
+var AnimatedTextEditor = function AnimatedTextEditor(_ref) {
+  var getMarkMeta = _ref.getMarkMeta,
+      selectVariant = _ref.selectVariant,
+      initialValue = _ref.initialValue;
+
   var _useState = React.useState(initialValue),
       value = _useState[0],
       setValue = _useState[1];
 
-  var _useState2 = React.useState({}),
-      buttonState = _useState2[0],
-      setButtonState = _useState2[1];
+  var _useState2 = React.useState({});
 
   var _useState3 = React.useState({}),
       selectedString = _useState3[0],
@@ -647,8 +929,10 @@ var AnimatedTextEditor = function AnimatedTextEditor() {
     return /*#__PURE__*/React__default.createElement(Element, props);
   }, []);
   var renderLeaf = React.useCallback(function (props) {
-    return /*#__PURE__*/React__default.createElement(Leaf, props);
-  }, []);
+    return /*#__PURE__*/React__default.createElement(Leaf, _extends({}, props, {
+      selectVariant: selectVariant
+    }));
+  }, [selectVariant]);
   var editor = React.useMemo(function () {
     return slateHistory.withHistory(slateReact.withReact(slate.createEditor()));
   }, []);
@@ -691,24 +975,11 @@ var AnimatedTextEditor = function AnimatedTextEditor() {
   }, /*#__PURE__*/React__default.createElement(ListBullet, {
     size: "48"
   })), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "shake"
-  }, /*#__PURE__*/React__default.createElement(Shake, null, "Shake")), /*#__PURE__*/React__default.createElement(MarkButton, {
+    getMarkMeta: getMarkMeta,
+    format: "kung"
+  }, /*#__PURE__*/React__default.createElement(Kung, null, "Kung")), /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "fade"
-  }, /*#__PURE__*/React__default.createElement(Fade, null, "Fade")), /*#__PURE__*/React__default.createElement(MarkButton, {
-    format: "gradient",
-    onMouseEnter: function onMouseEnter() {
-      setButtonState({
-        gradient: 'visible'
-      });
-    },
-    onMouseLeave: function onMouseLeave() {
-      setButtonState({
-        gradient: 'hidden'
-      });
-    }
-  }, /*#__PURE__*/React__default.createElement(Gradient, {
-    vairant: lodash.get(buttonState, 'gradient', 'hidden')
-  }, "Gradient")), /*#__PURE__*/React__default.createElement(ActiveMark, {
+  }, /*#__PURE__*/React__default.createElement(Fade, null, "Fade")), /*#__PURE__*/React__default.createElement(ActiveMark, {
     selectedString: selectedString,
     setSelectedString: setSelectedString
   })), /*#__PURE__*/React__default.createElement(slateReact.Editable, {
@@ -756,13 +1027,13 @@ var toggleBlock = function toggleBlock(editor, format) {
   }
 };
 
-var toggleMark = function toggleMark(editor, format) {
+var toggleMark = function toggleMark(editor, format, meta) {
   var isActive = isMarkActive(editor, format);
 
   if (isActive) {
     slate.Editor.removeMark(editor, format);
   } else {
-    slate.Editor.addMark(editor, format, {});
+    slate.Editor.addMark(editor, format, meta);
   }
 };
 
@@ -782,8 +1053,8 @@ var isMarkActive = function isMarkActive(editor, format) {
   return marks ? marks[format] === {} : false;
 };
 
-var ActiveMark = function ActiveMark(_ref) {
-  var selectedString = _ref.selectedString;
+var ActiveMark = function ActiveMark(_ref2) {
+  var selectedString = _ref2.selectedString;
   var editor = slateReact.useSlate();
   var selection = selectedString.selection;
   if (lodash.isEmpty(selection)) return null;
@@ -800,10 +1071,10 @@ var ActiveMark = function ActiveMark(_ref) {
   return null;
 };
 
-var Element = function Element(_ref2) {
-  var attributes = _ref2.attributes,
-      children = _ref2.children,
-      element = _ref2.element;
+var Element = function Element(_ref3) {
+  var attributes = _ref3.attributes,
+      children = _ref3.children,
+      element = _ref3.element;
 
   switch (element.type) {
     case 'block-quote':
@@ -829,26 +1100,19 @@ var Element = function Element(_ref2) {
   }
 };
 
-var Leaf = function Leaf(_ref3) {
-  var attributes = _ref3.attributes,
-      children = _ref3.children,
-      leaf = _ref3.leaf;
-
-  if (leaf.ready) {
-    children = /*#__PURE__*/React__default.createElement(Ready, leaf.ready, children);
-  }
-
-  if (leaf.shake) {
-    children = /*#__PURE__*/React__default.createElement(Shake, leaf.shake, children);
-  }
-
-  if (leaf.fade) {
-    children = /*#__PURE__*/React__default.createElement(Fade, leaf.fade, children);
-  }
-
-  if (leaf.gradient) {
-    children = /*#__PURE__*/React__default.createElement(Gradient, leaf.gradient, leaf.text);
-  }
+var Leaf = function Leaf(_ref4) {
+  var attributes = _ref4.attributes,
+      children = _ref4.children,
+      leaf = _ref4.leaf,
+      selectVariant = _ref4.selectVariant;
+  [Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(function (Tag) {
+    if (lodash.keys(leaf).includes(Tag.displayName.toLowerCase())) {
+      children = /*#__PURE__*/React__default.createElement(Tag, {
+        selectVariant: selectVariant,
+        meta: leaf[Tag.displayName.toLowerCase()]
+      }, children);
+    }
+  });
 
   if (leaf.bold) {
     children = /*#__PURE__*/React__default.createElement("b", null, children);
@@ -869,9 +1133,9 @@ var Leaf = function Leaf(_ref3) {
   return /*#__PURE__*/React__default.createElement("span", attributes, children);
 };
 
-var BlockButton = function BlockButton(_ref4) {
-  var format = _ref4.format,
-      children = _ref4.children;
+var BlockButton = function BlockButton(_ref5) {
+  var format = _ref5.format,
+      children = _ref5.children;
   var editor = slateReact.useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isBlockActive(editor, format),
@@ -882,11 +1146,15 @@ var BlockButton = function BlockButton(_ref4) {
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
 
-var MarkButton = function MarkButton(_ref5) {
-  var format = _ref5.format,
-      children = _ref5.children,
-      onMouseEnter = _ref5.onMouseEnter,
-      onMouseLeave = _ref5.onMouseLeave;
+var MarkButton = function MarkButton(_ref6) {
+  var format = _ref6.format,
+      children = _ref6.children,
+      onMouseEnter = _ref6.onMouseEnter,
+      onMouseLeave = _ref6.onMouseLeave,
+      _ref6$getMarkMeta = _ref6.getMarkMeta,
+      getMarkMeta = _ref6$getMarkMeta === void 0 ? function () {
+    return {};
+  } : _ref6$getMarkMeta;
   var editor = slateReact.useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isMarkActive(editor, format),
@@ -894,42 +1162,10 @@ var MarkButton = function MarkButton(_ref5) {
     onMouseLeave: onMouseLeave,
     onMouseDown: function onMouseDown(event) {
       event.preventDefault();
-      toggleMark(editor, format);
+      toggleMark(editor, format, getMarkMeta());
     }
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
-
-var initialValue = [{
-  type: 'paragraph',
-  children: [{
-    text: "So are you happy now?\nFinally happy now are you?\n\uBB50 \uADF8\uB300\uB85C\uC57C \uB09C\n\uB2E4 \uC783\uC5B4\uBC84\uB9B0 \uAC83 \uAC19\uC544\n\uBAA8\uB4E0 \uAC8C \uB9D8\uB300\uB85C \uC654\uB2E4\uAC00 \uC778\uC0AC\uB3C4 \uC5C6\uC774"
-  }, {
-    text: "\uB5A0\uB098",
-    fade: true
-  }, {
-    text: "\n\uC774\uB300\uB85C\uB294 \uBB34\uC5C7\uB3C4 \uC0AC\uB791\uD558\uACE0 \uC2F6\uC9C0 \uC54A\uC544\n\uB2E4 \uD574\uC9C8 \uB300\uB85C \uD574\uC838\uBC84\uB9B0\n\uAE30\uC5B5 \uC18D\uC744 \uC5EC\uD589\uD574\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC774\uBCC4 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n"
-  }, {
-    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
-    gradient: {}
-  }, {
-    text: "Forever we young\n"
-  }, {
-    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
-    gradient: {}
-  }, {
-    text: "\n\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C\n\uC12C \uADF8\uB798 \uC5EC\uAE34 \uC12C \uC11C\uB85C\uAC00 \uB9CC\uB4E0 \uC791\uC740 \uC12C\n\uC608 \uC74C forever young \uC601\uC6D0\uC774\uB780 \uB9D0\uC740 \uBAA8\uB798\uC131\n\uC791\uBCC4\uC740 \uB9C8\uCE58 \uC7AC\uB09C\uBB38\uC790 \uAC19\uC9C0\n\uADF8\uB9AC\uC6C0\uACFC \uAC19\uC774 \uB9DE\uC774\uD558\uB294 \uC544\uCE68\n\uC11C\uB85C\uAC00 \uC774 \uC601\uAC81\uC744 \uC9C0\uB098\n\uAF2D \uC774 \uC12C\uC5D0\uC11C \uB2E4\uC2DC \uB9CC\uB098\n\uC9C0\uB098\uB4EF \uB0A0 \uC704\uB85C\uD558\uB358 \uB204\uAD6C\uC758 \uB9D0\uB300\uB85C \uACE0\uC791\n\uD55C \uBF18\uC9DC\uB9AC \uCD94\uC5B5\uC744 \uC78A\uB294 \uAC8C \uCC38 \uC27D\uC9C0 \uC54A\uC544\n\uC2DC\uAC04\uC774 \uC9C0\uB098\uB3C4 \uC5EC\uC804\uD788\n\uB0A0 \uBD99\uB4DC\uB294 \uADF8\uACF3\uC5D0\n\uC6B0\uB9AC\uB294 \uC624\uB80C\uC9C0 \uD0DC\uC591 \uC544\uB798\n\uADF8\uB9BC\uC790 \uC5C6\uC774 \uD568\uAED8 \uCDA4\uC744 \uCDB0\n\uC815\uD574\uC9C4 \uC548\uB155 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uC544\uB984\uB2E4\uC6E0\uB358 \uADF8 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\n\uC6B0\uB9AC\uB294 \uC11C\uB85C\uB97C \uBCA0\uACE0 \uB204\uC6CC\n\uC2AC\uD504\uC9C0 \uC54A\uC740 \uC774\uC57C\uAE30\uB97C \uB098\uB220\n\uC6B0\uC6B8\uD55C \uACB0\uB9D0 \uB530\uC704\uB294 \uC5C6\uC5B4\n\uB09C \uC601\uC6D0\uD788 \uB110 \uC774 \uAE30\uC5B5\uC5D0\uC11C \uB9CC\uB098\nForever young\n"
-  }, {
-    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
-    gradient: {}
-  }, {
-    text: "Forever we young\n"
-  }, {
-    text: "\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0 \uC6B0\uC6B0\uC6B0\uC6B0\n",
-    gradient: {}
-  }, {
-    text: "\uC774\uB7F0 \uC545\uBABD\uC774\uB77C\uBA74 \uC601\uC601 \uAE68\uC9C0 \uC54A\uC744\uAC8C"
-  }]
-}];
 
 var ExampleComponent = function ExampleComponent(_ref) {
   var text = _ref.text;
