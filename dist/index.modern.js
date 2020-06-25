@@ -7,7 +7,49 @@ import { motion } from 'framer-motion';
 import styled from 'styled-components';
 import { useInView } from 'react-intersection-observer';
 
-var styles = {"test":"_styles-module__test__3ybTi"};
+var styles = {"test":"_3ybTi"};
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+function _taggedTemplateLiteralLoose(strings, raw) {
+  if (!raw) {
+    raw = strings.slice(0);
+  }
+
+  strings.raw = raw;
+  return strings;
+}
 
 function unwrapExports (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
@@ -422,40 +464,53 @@ var Heading = forwardRef(function (props, ref) {
 });
 Heading.displayName = 'Heading';
 
-let _ = t => t,
-    _t,
-    _t2,
-    _t3;
-const Button = styled.a(_t || (_t = _`
-  cursor: pointer;
-  color: ${0};
-`), ({
-  reversed,
-  active
-}) => reversed ? active ? 'white' : '#aaa' : active ? 'black' : '#ccc');
-const Icon = styled.span(_t2 || (_t2 = _`
-  font-size: 18px;
-  vertical-align: text-bottom;
-`));
-const Toolbar = styled.div(_t3 || (_t3 = _`
-  position: sticky;
-  padding: 1px 18px 17px;
-  margin: 0 -20px;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 20px;
+function _templateObject3() {
+  var data = _taggedTemplateLiteralLoose(["\n  position: sticky;\n  padding: 1px 18px 17px;\n  margin: 0 -20px;\n  border-bottom: 2px solid #eee;\n  margin-bottom: 20px;\n\n  & > * {\n    display: inline-block;\n  }\n\n  & > * + * {\n    margin-left: 15px;\n  }\n"]);
 
-  & > * {
-    display: inline-block;
-  }
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
 
-  & > * + * {
-    margin-left: 15px;
-  }
-`));
+  return data;
+}
 
-let _$1 = t => t,
-    _t$1;
-const variants = {
+function _templateObject2() {
+  var data = _taggedTemplateLiteralLoose(["\n  font-size: 18px;\n  vertical-align: text-bottom;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteralLoose(["\n  cursor: pointer;\n  color: ", ";\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var Button = styled.a(_templateObject(), function (_ref) {
+  var reversed = _ref.reversed,
+      active = _ref.active;
+  return reversed ? active ? 'white' : '#aaa' : active ? 'black' : '#ccc';
+});
+var Icon = styled.span(_templateObject2());
+var Toolbar = styled.div(_templateObject3());
+
+function _templateObject$1() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$1 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var variants = {
   visible: {
     scaleX: [1, 2, 1],
     transition: {
@@ -470,11 +525,13 @@ const variants = {
   }
 };
 
-const Chuck = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Chuck = function Chuck(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(Word, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -485,16 +542,19 @@ const Chuck = ({
   }, children);
 };
 
-const Word = styled(motion.span)(_t$1 || (_t$1 = _$1`
-  display: inline-block;
-  font-weight: 600;
-  font-size: 30px;
-`));
+var Word = styled(motion.span)(_templateObject$1());
 Chuck.displayName = 'Chuck';
 
-let _$2 = t => t,
-    _t$2;
-const variants$1 = {
+function _templateObject$2() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$2 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var variants$1 = {
   visible: {
     scale: 1,
     'text-shadow': ['-1px 10px 1px #B5B5B5', '0px 0px 0px #B5B5B5'],
@@ -509,11 +569,13 @@ const variants$1 = {
   }
 };
 
-const Dung = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Dung = function Dung(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(Word$1, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -524,14 +586,10 @@ const Dung = ({
   }, children);
 };
 
-const Word$1 = styled(motion.span)(_t$2 || (_t$2 = _$2`
-  display: inline-block;
-  font-weight: 600;
-  font-size: 30px;
-`));
+var Word$1 = styled(motion.span)(_templateObject$2());
 Dung.displayName = 'Dung';
 
-const variants$2 = {
+var variants$2 = {
   visible: {
     opacity: [1, 0, 1],
     'font-weight': ['400', '600', '400'],
@@ -549,11 +607,13 @@ const variants$2 = {
   }
 };
 
-const Fade = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Fade = function Fade(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -563,7 +623,7 @@ const Fade = ({
 
 Fade.displayName = 'Fade';
 
-const container = {
+var container = {
   visible: {
     transition: {
       staggerChildren: 0.3
@@ -571,7 +631,7 @@ const container = {
   },
   hidden: {}
 };
-const items = {
+var items = {
   visible: {
     transition: {
       repeatDelay: 10,
@@ -587,17 +647,21 @@ const items = {
   }
 };
 
-const Gradient = ({
-  color,
-  children,
-  vairant
-}) => {
-  const [ref, inView] = useInView();
-  const letters = [...children].map((l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
-    key: i,
-    variants: items
-  }, l));
-  const currentVariant = vairant || (inView ? 'visible' : 'hidden');
+var Gradient = function Gradient(_ref) {
+  var children = _ref.children,
+      vairant = _ref.vairant;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  var letters = [].concat(children).map(function (l, i) {
+    return /*#__PURE__*/React__default.createElement(motion.span, {
+      key: i,
+      variants: items
+    }, l);
+  });
+  var currentVariant = vairant || (inView ? 'visible' : 'hidden');
   return /*#__PURE__*/React__default.createElement("span", {
     "data-slate-string": "true"
   }, /*#__PURE__*/React__default.createElement(motion.span, {
@@ -609,9 +673,16 @@ const Gradient = ({
 
 Gradient.displayName = 'Gradient';
 
-let _$3 = t => t,
-    _t$3;
-const variants$3 = {
+function _templateObject$3() {
+  var data = _taggedTemplateLiteralLoose(["\n  position: relative;\n  font-weight: 600;\n  font-size: 30px;\n"]);
+
+  _templateObject$3 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var variants$3 = {
   visible: {
     opacity: [0, 1],
     top: 0,
@@ -629,13 +700,13 @@ const variants$3 = {
   }
 };
 
-const Kung = ({
-  meta: _meta = {},
-  selectVariant,
-  children
-}) => {
+var Kung = function Kung(_ref) {
+  var _ref$meta = _ref.meta,
+      meta = _ref$meta === void 0 ? {} : _ref$meta,
+      selectVariant = _ref.selectVariant,
+      children = _ref.children;
   return /*#__PURE__*/React__default.createElement(Word$2, {
-    animate: selectVariant && selectVariant(_meta),
+    animate: selectVariant && selectVariant(meta),
     variants: variants$3,
     initial: {
       top: '-50%'
@@ -643,11 +714,7 @@ const Kung = ({
   }, children);
 };
 
-const Word$2 = styled(motion.span)(_t$3 || (_t$3 = _$3`
-  position: relative;
-  font-weight: 600;
-  font-size: 30px;
-`));
+var Word$2 = styled(motion.span)(_templateObject$3());
 Kung.displayName = 'Kung';
 
 var Heart = forwardRef(function (props, ref) {
@@ -660,42 +727,55 @@ var Heart = forwardRef(function (props, ref) {
 });
 Heart.displayName = 'Heart';
 
-let _$4 = t => t,
-    _t$4;
-const container$1 = {
+function _templateObject$4() {
+  var data = _taggedTemplateLiteralLoose(["\n  color: 'red';\n"]);
+
+  _templateObject$4 = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+var container$1 = {
   visible: {
     transition: {}
   },
   hidden: {}
 };
-const items$1 = {
-  visible: i => ({
-    transition: {
-      repeatDelay: 1,
-      loop: Infinity,
-      ease: 'easeIn'
-    },
-    opacity: [0, 1, 0],
-    position: 'relative',
-    color: '#ef476f',
-    top: [`-${random(10, 0)}px`, `${random(5, -20)}px`]
-  }),
+var items$1 = {
+  visible: function visible(i) {
+    return {
+      transition: {
+        repeatDelay: 1,
+        loop: Infinity,
+        ease: 'easeIn'
+      },
+      opacity: [0, 1, 0],
+      position: 'relative',
+      color: '#ef476f',
+      top: ["-" + random(10, 0) + "px", random(5, -20) + "px"]
+    };
+  },
   hidden: {}
 };
 
-const Love = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
-  const currentVariant = inView ? 'visible' : 'hidden';
-  const hearts = times(5, (l, i) => /*#__PURE__*/React__default.createElement(motion.span, {
-    key: i,
-    variants: items$1,
-    custom: i
-  }, /*#__PURE__*/React__default.createElement(Icon$1, {
-    width: 10
-  })));
+var Love = function Love(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
+  var currentVariant = inView ? 'visible' : 'hidden';
+  var hearts = times(5, function (l, i) {
+    return /*#__PURE__*/React__default.createElement(motion.span, {
+      key: i,
+      variants: items$1,
+      custom: i
+    }, /*#__PURE__*/React__default.createElement(Icon$1, {
+      width: 10
+    }));
+  });
   return /*#__PURE__*/React__default.createElement("span", {
     style: {
       position: 'relative'
@@ -715,11 +795,9 @@ const Love = ({
 };
 
 Love.displayName = 'Love';
-const Icon$1 = styled(Heart)(_t$4 || (_t$4 = _$4`
-  color: 'red';
-`));
+var Icon$1 = styled(Heart)(_templateObject$4());
 
-const container$2 = {
+var container$2 = {
   visible: {
     opacity: 1,
     fontSize: ['0px', '55px'],
@@ -735,11 +813,13 @@ const container$2 = {
   }
 };
 
-const Ready = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Ready = function Ready(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -749,7 +829,7 @@ const Ready = ({
 
 Ready.displayName = 'Ready';
 
-const variants$4 = {
+var variants$4 = {
   visible: {
     transform: 'rotate(45deg)',
     transition: {
@@ -761,11 +841,13 @@ const variants$4 = {
   hidden: {}
 };
 
-const Shake = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Shake = function Shake(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -775,7 +857,7 @@ const Shake = ({
 
 Shake.displayName = 'Shake';
 
-const container$3 = {
+var container$3 = {
   visible: {
     'background-image': ['linear-gradient(to right, #30CFD0 0%, #330867 100%)', 'linear-gradient(to right, #330867 0%, #30CFD0 100%)', 'linear-gradient(to right, #30CFD0 0%, #330867 100%)'],
     '-webkit-background-clip': 'text',
@@ -788,11 +870,13 @@ const container$3 = {
   hidden: {}
 };
 
-const Shine = ({
-  props,
-  children
-}) => {
-  const [ref, inView] = useInView();
+var Shine = function Shine(_ref) {
+  var children = _ref.children;
+
+  var _useInView = useInView(),
+      ref = _useInView[0],
+      inView = _useInView[1];
+
   return /*#__PURE__*/React__default.createElement(motion.span, {
     ref: ref,
     animate: inView ? 'visible' : 'hidden',
@@ -803,41 +887,58 @@ const Shine = ({
 
 Shine.displayName = 'Shine';
 
-let _$5 = t => t,
-    _t$5;
+function _templateObject$5() {
+  var data = _taggedTemplateLiteralLoose(["\n  display: inline-block;\n  font-weight: 600;\n  font-size: 30px;\n"]);
 
-const Word$3 = styled(motion.span)(_t$5 || (_t$5 = _$5`
-  display: inline-block;
-  font-weight: 600;
-  font-size: 30px;
-`));
+  _templateObject$5 = function _templateObject() {
+    return data;
+  };
 
-const HOTKEYS = {
+  return data;
+}
+
+var Word$3 = styled(motion.span)(_templateObject$5());
+
+var HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
   'mod+u': 'underline',
   'mod+`': 'code'
 };
-const LIST_TYPES = ['numbered-list', 'bulleted-list'];
+var LIST_TYPES = ['numbered-list', 'bulleted-list'];
 
-const AnimatedTextEditor = ({
-  getMarkMeta,
-  selectVariant,
-  initialValue,
-  onEditorReady
-}) => {
-  const [value, setValue] = useState(initialValue);
-  const [buttonState, setButtonState] = useState({});
-  const [selectedString, setSelectedString] = useState({});
-  const renderElement = useCallback(props => /*#__PURE__*/React__default.createElement(Element, props), []);
-  const renderLeaf = useCallback(props => /*#__PURE__*/React__default.createElement(Leaf, Object.assign({}, props, {
-    selectVariant: selectVariant
-  })), [selectVariant]);
-  const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+var AnimatedTextEditor = function AnimatedTextEditor(_ref) {
+  var getMarkMeta = _ref.getMarkMeta,
+      selectVariant = _ref.selectVariant,
+      initialValue = _ref.initialValue;
+
+  var _useState = useState(initialValue),
+      value = _useState[0],
+      setValue = _useState[1];
+
+  var _useState2 = useState({});
+
+  var _useState3 = useState({}),
+      selectedString = _useState3[0],
+      setSelectedString = _useState3[1];
+
+  var renderElement = useCallback(function (props) {
+    return /*#__PURE__*/React__default.createElement(Element, props);
+  }, []);
+  var renderLeaf = useCallback(function (props) {
+    return /*#__PURE__*/React__default.createElement(Leaf, _extends({}, props, {
+      selectVariant: selectVariant
+    }));
+  }, [selectVariant]);
+  var editor = useMemo(function () {
+    return withHistory(withReact(createEditor()));
+  }, []);
   return /*#__PURE__*/React__default.createElement(Slate, {
     editor: editor,
     value: value,
-    onChange: value => setValue(value)
+    onChange: function onChange(value) {
+      return setValue(value);
+    }
   }, /*#__PURE__*/React__default.createElement(Toolbar, null, /*#__PURE__*/React__default.createElement(MarkButton, {
     format: "bold"
   }, /*#__PURE__*/React__default.createElement(Bold, {
@@ -883,16 +984,16 @@ const AnimatedTextEditor = ({
     renderLeaf: renderLeaf,
     placeholder: "Enter some rich text\u2026",
     spellCheck: true,
-    onKeyDown: event => {
-      for (const hotkey in HOTKEYS) {
+    onKeyDown: function onKeyDown(event) {
+      for (var hotkey in HOTKEYS) {
         if (isHotkey(hotkey, event)) {
           event.preventDefault();
-          const mark = HOTKEYS[hotkey];
+          var mark = HOTKEYS[hotkey];
           toggleMark(editor, mark);
         }
       }
     },
-    onSelectCapture: () => {
+    onSelectCapture: function onSelectCapture() {
       setSelectedString({
         selection: editor.selection,
         marks: Editor.marks(editor)
@@ -901,11 +1002,13 @@ const AnimatedTextEditor = ({
   }));
 };
 
-const toggleBlock = (editor, format) => {
-  const isActive = isBlockActive(editor, format);
-  const isList = LIST_TYPES.includes(format);
+var toggleBlock = function toggleBlock(editor, format) {
+  var isActive = isBlockActive(editor, format);
+  var isList = LIST_TYPES.includes(format);
   Transforms.unwrapNodes(editor, {
-    match: n => LIST_TYPES.includes(n.type),
+    match: function match(n) {
+      return LIST_TYPES.includes(n.type);
+    },
     split: true
   });
   Transforms.setNodes(editor, {
@@ -913,7 +1016,7 @@ const toggleBlock = (editor, format) => {
   });
 
   if (!isActive && isList) {
-    const block = {
+    var block = {
       type: format,
       children: []
     };
@@ -921,8 +1024,8 @@ const toggleBlock = (editor, format) => {
   }
 };
 
-const toggleMark = (editor, format, meta) => {
-  const isActive = isMarkActive(editor, format);
+var toggleMark = function toggleMark(editor, format, meta) {
+  var isActive = isMarkActive(editor, format);
 
   if (isActive) {
     Editor.removeMark(editor, format);
@@ -931,43 +1034,45 @@ const toggleMark = (editor, format, meta) => {
   }
 };
 
-const isBlockActive = (editor, format) => {
-  const [match] = Editor.nodes(editor, {
-    match: n => n.type === format
-  });
+var isBlockActive = function isBlockActive(editor, format) {
+  var _Editor$nodes = Editor.nodes(editor, {
+    match: function match(n) {
+      return n.type === format;
+    }
+  }),
+      match = _Editor$nodes[0];
+
   return !!match;
 };
 
-const isMarkActive = (editor, format) => {
-  const marks = Editor.marks(editor);
+var isMarkActive = function isMarkActive(editor, format) {
+  var marks = Editor.marks(editor);
   return marks ? marks[format] === {} : false;
 };
 
-const ActiveMark = ({
-  selectedString
-}) => {
-  const editor = useSlate();
-  const {
-    selection
-  } = selectedString;
+var ActiveMark = function ActiveMark(_ref2) {
+  var selectedString = _ref2.selectedString;
+  var editor = useSlate();
+  var selection = selectedString.selection;
   if (isEmpty(selection)) return null;
-  const [{
-    children
-  }] = Editor.fragment(editor, selection);
+
+  var _Editor$fragment = Editor.fragment(editor, selection),
+      children = _Editor$fragment[0].children;
+
   if (isEmpty(children)) return null;
-  const {
-    text,
-    ...marks
-  } = children[0];
+
+  var _children$ = children[0],
+      marks = _objectWithoutPropertiesLoose(_children$, ["text"]);
+
   console.log(marks);
   return null;
 };
 
-const Element = ({
-  attributes,
-  children,
-  element
-}) => {
+var Element = function Element(_ref3) {
+  var attributes = _ref3.attributes,
+      children = _ref3.children,
+      element = _ref3.element;
+
   switch (element.type) {
     case 'block-quote':
       return /*#__PURE__*/React__default.createElement("blockquote", attributes, children);
@@ -992,13 +1097,12 @@ const Element = ({
   }
 };
 
-const Leaf = ({
-  attributes,
-  children,
-  leaf,
-  selectVariant
-}) => {
-  [Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(Tag => {
+var Leaf = function Leaf(_ref4) {
+  var attributes = _ref4.attributes,
+      children = _ref4.children,
+      leaf = _ref4.leaf,
+      selectVariant = _ref4.selectVariant;
+  [Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(function (Tag) {
     if (keys(leaf).includes(Tag.displayName.toLowerCase())) {
       children = /*#__PURE__*/React__default.createElement(Tag, {
         selectVariant: selectVariant,
@@ -1026,42 +1130,42 @@ const Leaf = ({
   return /*#__PURE__*/React__default.createElement("span", attributes, children);
 };
 
-const BlockButton = ({
-  format,
-  children
-}) => {
-  const editor = useSlate();
+var BlockButton = function BlockButton(_ref5) {
+  var format = _ref5.format,
+      children = _ref5.children;
+  var editor = useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isBlockActive(editor, format),
-    onMouseDown: event => {
+    onMouseDown: function onMouseDown(event) {
       event.preventDefault();
       toggleBlock(editor, format);
     }
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
 
-const MarkButton = ({
-  format,
-  children,
-  onMouseEnter,
-  onMouseLeave,
-  getMarkMeta: _getMarkMeta = () => ({})
-}) => {
-  const editor = useSlate();
+var MarkButton = function MarkButton(_ref6) {
+  var format = _ref6.format,
+      children = _ref6.children,
+      onMouseEnter = _ref6.onMouseEnter,
+      onMouseLeave = _ref6.onMouseLeave,
+      _ref6$getMarkMeta = _ref6.getMarkMeta,
+      getMarkMeta = _ref6$getMarkMeta === void 0 ? function () {
+    return {};
+  } : _ref6$getMarkMeta;
+  var editor = useSlate();
   return /*#__PURE__*/React__default.createElement(Button, {
     active: isMarkActive(editor, format),
     onMouseEnter: onMouseEnter,
     onMouseLeave: onMouseLeave,
-    onMouseDown: event => {
+    onMouseDown: function onMouseDown(event) {
       event.preventDefault();
-      toggleMark(editor, format, _getMarkMeta());
+      toggleMark(editor, format, getMarkMeta());
     }
   }, /*#__PURE__*/React__default.createElement(Icon, null, children));
 };
 
-const ExampleComponent = ({
-  text
-}) => {
+var ExampleComponent = function ExampleComponent(_ref) {
+  var text = _ref.text;
   return /*#__PURE__*/React__default.createElement("div", {
     className: styles.test
   }, "Example Cowhat mponent: ", text);

@@ -10,7 +10,7 @@ var framerMotion = require('framer-motion');
 var styled = _interopDefault(require('styled-components'));
 var reactIntersectionObserver = require('react-intersection-observer');
 
-var styles = {"test":"_styles-module__test__3ybTi"};
+var styles = {"test":"_3ybTi"};
 
 function _extends() {
   _extends = Object.assign || function (target) {
