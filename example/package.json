@@ -20,7 +20,8 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "predeploy": "cd ../ && yarn install && yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"
