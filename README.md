@@ -25,6 +25,8 @@ class Example extends Component {
 }
 ```
 
+## Example
+
 ## License
 
 MIT © [qmfkdldks](https://github.com/qmfkdldks)
