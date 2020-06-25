@@ -27,6 +27,12 @@ class Example extends Component {
 
 ## Example
 
+```bash
+cd example
+yarn install
+yarn dev
+```
+
 ## License
 
 MIT © [qmfkdldks](https://github.com/qmfkdldks)
