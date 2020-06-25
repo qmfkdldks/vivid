@@ -3,7 +3,7 @@ import YouTube from 'react-youtube'
 
 import Header from '../components/header'
 import Features from '../components/features'
-import { AnimatedTextEditor } from 'vivid'
+import { AnimatedTextEditor } from 'vivid-editor'
 import styled, { createGlobalStyle } from 'styled-components'
 
 const opts = {

@@ -1,5 +1,7 @@
 build/
 dist/
 node_modules/
+dev/node_modules/
+landing/node_modules/
 .snapshots/
 *.min.js

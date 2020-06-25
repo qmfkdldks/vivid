@@ -1,7 +1,9 @@
 .vscode/
 node_modules/
-example/node_modules/
-example/.next/
+dev/node_modules/
+dev/.next/
+landing/node_modules/
+landing/.next/
 *.tgz
 npm-debug.log*
 yarn-debug.log*
