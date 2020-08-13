@@ -1,5 +1,7 @@
 # Library Landing Page
-Next.js App 
+Landing Page: https://vivid-delta.vercel.app/
+
+Next.js App which show example use case and documentation
 https://nextjs.org/
 
 # Tech stack
