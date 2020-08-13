@@ -1,4 +1,6 @@
-This example was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dev Project
+This project is created by
+https://github.com/transitive-bullshit/create-react-library#readme
 
 It is linked to the vivid package in the parent directory for development purposes.
 
