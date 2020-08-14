@@ -50,9 +50,6 @@
   ],
   "dependencies": {
     "framer-motion": "^1.10.3",
-    "lodash": "^4.17.15",
-    "react-intersection-observer": "^8.26.2",
-    "react-motion": "^0.5.2",
     "slate": "^0.57.3",
     "slate-history": "^0.57.3",
     "slate-react": "^0.57.3",

@@ -4,17 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "framer-motion": "^1.11.0",
-    "lodash": "^4.17.15",
     "next": "^9.4.4",
-    "prop-types": "^15.7.2",
     "react": "link:../node_modules/react",
-    "react-code-blocks": "^0.0.7",
     "react-dom": "^16.13.1",
-    "react-intersection-observer": "^8.26.2",
-    "react-youtube": "^7.11.2",
-    "styled-components": "^5.1.1",
-    "styled-icons": "^10.2.1",
     "vivid-editor": "link:.."
   },
   "scripts": {

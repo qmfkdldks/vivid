@@ -3,29 +3,8 @@ import isHotkey from 'is-hotkey'
 import { Editable, withReact, useSlate, Slate } from 'slate-react'
 import { Editor, Transforms, createEditor } from 'slate'
 import { withHistory } from 'slate-history'
-import { get, isEmpty, keys, contains } from 'lodash'
-import { useAnimation } from 'framer-motion'
-import {
-  Bold,
-  Italic,
-  Underline,
-  Quote,
-  ListNumber,
-  ListBullet
-} from '@styled-icons/foundation'
-import { Heading } from '@styled-icons/boxicons-regular/Heading'
+
 import { Button, Icon, Toolbar } from './components'
-import {
-  Fade,
-  Ready,
-  Shake,
-  Gradient,
-  Love,
-  Shine,
-  Kung,
-  Chuck,
-  Dung
-} from './animations'
 
 const HOTKEYS = {
   'mod+b': 'bold',
@@ -36,72 +15,25 @@ const HOTKEYS = {
 
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
-const AnimatedTextEditor = ({
-  getMarkMeta,
-  selectVariant,
-  initialValue,
-  onEditorReady
-}) => {
+const RichTextExample = () => {
   const [value, setValue] = useState(initialValue)
-  const [buttonState, setButtonState] = useState({})
-  // const [animationState, setAnimationState] = useState({})
-  const [selectedString, setSelectedString] = useState({})
-
-  // Animation Controller
-  // const animationControl = useAnimation()
-  // onEditorReady && onEditorReady(animationControl)
-
   const renderElement = useCallback((props) => <Element {...props} />, [])
-  const renderLeaf = useCallback(
-    (props) => <Leaf {...props} selectVariant={selectVariant} />,
-    [selectVariant]
-  )
+  const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
-        <MarkButton format='bold'>
-          <Bold size='48' />
-        </MarkButton>
-        <MarkButton format='italic'>
-          <Italic size='48' />
-        </MarkButton>
-        <MarkButton format='underline'>
-          <Underline size='48' />
-        </MarkButton>
-        <BlockButton format='heading-one'>
-          <Heading size='48' />
-        </BlockButton>
-        <BlockButton format='heading-two'>
-          <Heading size='38' />
-        </BlockButton>
-        <BlockButton format='block-quote'>
-          <Quote size='48' />
-        </BlockButton>
-        <BlockButton format='numbered-list'>
-          <ListNumber size='48' />
-        </BlockButton>
-        <BlockButton format='bulleted-list'>
-          <ListBullet size='48' />
-        </BlockButton>
-        <MarkButton getMarkMeta={getMarkMeta} format='kung'>
-          <Kung>Kung</Kung>
-        </MarkButton>
-        <MarkButton format='fade'>
-          <Fade>Fade</Fade>
-        </MarkButton>
-        <ActiveMark
-          selectedString={selectedString}
-          setSelectedString={setSelectedString}
-        />
+        <MarkButton format='bold'>Bold</MarkButton>
+        <MarkButton format='italic'>Italic</MarkButton>
+        <MarkButton format='code'>Underline</MarkButton>
       </Toolbar>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder='Enter some rich text…'
         spellCheck
-        // autoFocus
+        autoFocus
         onKeyDown={(event) => {
           for (const hotkey in HOTKEYS) {
             if (isHotkey(hotkey, event)) {
@@ -110,12 +42,6 @@ const AnimatedTextEditor = ({
               toggleMark(editor, mark)
             }
           }
-        }}
-        onSelectCapture={() => {
-          setSelectedString({
-            selection: editor.selection,
-            marks: Editor.marks(editor)
-          })
         }}
       />
     </Slate>
@@ -141,13 +67,13 @@ const toggleBlock = (editor, format) => {
   }
 }
 
-const toggleMark = (editor, format, meta) => {
+const toggleMark = (editor, format) => {
   const isActive = isMarkActive(editor, format)
 
   if (isActive) {
     Editor.removeMark(editor, format)
   } else {
-    Editor.addMark(editor, format, meta)
+    Editor.addMark(editor, format, true)
   }
 }
 
@@ -161,21 +87,7 @@ const isBlockActive = (editor, format) => {
 
 const isMarkActive = (editor, format) => {
   const marks = Editor.marks(editor)
-  return marks ? marks[format] === {} : false
-}
-
-const ActiveMark = ({ selectedString }) => {
-  const editor = useSlate()
-  const { selection } = selectedString
-  if (isEmpty(selection)) return null
-  const [{ children }] = Editor.fragment(editor, selection)
-  if (isEmpty(children)) return null
-
-  const { text, ...marks } = children[0]
-
-  console.log(marks)
-  // TODO get schema from map
-  return null
+  return marks ? marks[format] === true : false
 }
 
 const Element = ({ attributes, children, element }) => {
@@ -197,24 +109,9 @@ const Element = ({ attributes, children, element }) => {
   }
 }
 
-const Leaf = ({ attributes, children, leaf, selectVariant }) => {
-  ;[Fade, Ready, Shake, Gradient, Love, Shine, Kung, Chuck, Dung].forEach(
-    (Tag) => {
-      if (keys(leaf).includes(Tag.displayName.toLowerCase())) {
-        children = (
-          <Tag
-            selectVariant={selectVariant}
-            meta={leaf[Tag.displayName.toLowerCase()]}
-          >
-            {children}
-          </Tag>
-        )
-      }
-    }
-  )
-
+const Leaf = ({ attributes, children, leaf }) => {
   if (leaf.bold) {
-    children = <b>{children}</b>
+    children = <strong>{children}</strong>
   }
 
   if (leaf.code) {
@@ -232,7 +129,7 @@ const Leaf = ({ attributes, children, leaf, selectVariant }) => {
   return <span {...attributes}>{children}</span>
 }
 
-const BlockButton = ({ format, children }) => {
+const BlockButton = ({ format, icon }) => {
   const editor = useSlate()
   return (
     <Button
@@ -242,32 +139,61 @@ const BlockButton = ({ format, children }) => {
         toggleBlock(editor, format)
       }}
     >
-      <Icon>{children}</Icon>
+      <Icon>{icon}</Icon>
     </Button>
   )
 }
 
-const MarkButton = ({
-  format,
-  children,
-  onMouseEnter,
-  onMouseLeave,
-  getMarkMeta = () => ({})
-}) => {
+const MarkButton = ({ format, children }) => {
   const editor = useSlate()
   return (
     <Button
       active={isMarkActive(editor, format)}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
       onMouseDown={(event) => {
         event.preventDefault()
-        toggleMark(editor, format, getMarkMeta())
+        toggleMark(editor, format)
       }}
     >
-      <Icon>{children}</Icon>
+      {children}
     </Button>
   )
 }
 
-export default AnimatedTextEditor
+const initialValue = [
+  {
+    type: 'paragraph',
+    children: [
+      { text: 'This is editable ' },
+      { text: 'rich', bold: true },
+      { text: ' text, ' },
+      { text: 'much', italic: true },
+      { text: ' better than a ' },
+      { text: '<textarea>', code: true },
+      { text: '!' }
+    ]
+  },
+  {
+    type: 'paragraph',
+    children: [
+      {
+        text:
+          "Since it's rich text, you can do things like turn a selection of text "
+      },
+      { text: 'bold', bold: true },
+      {
+        text:
+          ', or add a semantically rendered block quote in the middle of the page, like this:'
+      }
+    ]
+  },
+  {
+    type: 'block-quote',
+    children: [{ text: 'A wise quote.' }]
+  },
+  {
+    type: 'paragraph',
+    children: [{ text: 'Try it out for yourself!' }]
+  }
+]
+
+export default RichTextExample

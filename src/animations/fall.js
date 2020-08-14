@@ -1,6 +1,5 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import styled from 'styled-components'
 
 const variants = {
   visible: {
@@ -18,24 +17,18 @@ const variants = {
   hidden: { opacity: 1 }
 }
 
-const Kung = ({ meta = {}, selectVariant, children }) => {
+const Fall = ({ meta = {}, selectVariant, children }) => {
   return (
-    <Word
+    <motion.span
       animate={selectVariant && selectVariant(meta)}
       variants={variants}
       initial={{ top: '-50%' }}
     >
       {children}
-    </Word>
+    </motion.span>
   )
 }
 
-const Word = styled(motion.span)`
-  position: relative;
-  font-weight: 600;
-  font-size: 30px;
-`
+Fall.displayName = 'Fall'
 
-Kung.displayName = 'Kung'
-
-export default Kung
+export default Fall

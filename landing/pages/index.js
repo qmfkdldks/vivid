@@ -77,13 +77,6 @@ const App = () => {
                 ]
               }
             ]}
-            getMarkMeta={() => ({
-              visible: {
-                transition: {
-                  delay: player ? player.getCurrentTime() : 0
-                }
-              }
-            })}
             selectVariant={selectVariant}
           />
           <h1>Jeremy Zucker - comethru</h1>
