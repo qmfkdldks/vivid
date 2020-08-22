@@ -2,7 +2,7 @@
 
 > animated text editor for building alive text content
 
-[![NPM](https://img.shields.io/npm/v/vivid.svg)](https://www.npmjs.com/package/vivid) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![NPM](https://img.shields.io/npm/v/vivid-editor.svg)](https://www.npmjs.com/package/vivid-editor)
 
 [GIF which shows the editor]
 
