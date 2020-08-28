@@ -1,3 +1,3 @@
-import Fall from './fall'
+import Fall from "./fall";
 
-export default [Fall]
+export default [Fall];
