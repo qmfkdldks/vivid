@@ -1,14 +1,14 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const Button = styled.a`
   cursor: pointer;
   color: ${({ reversed, active }) =>
-    reversed ? (active ? 'white' : '#aaa') : active ? 'black' : '#ccc'};
-`
+    reversed ? (active ? "white" : "#aaa") : active ? "black" : "#ccc"};
+`;
 export const Icon = styled.span`
   font-size: 18px;
   vertical-align: text-bottom;
-`
+`;
 
 export const Toolbar = styled.div`
   position: sticky;
@@ -24,4 +24,4 @@ export const Toolbar = styled.div`
   & > * + * {
     margin-left: 15px;
   }
-`
+`;
