@@ -5,7 +5,7 @@ import { withHistory } from "slate-history";
 import Leaf from "./components/Leaf";
 import { Button, Icon, Toolbar } from "./style";
 
-const VividEditor = (initialValue) => {
+const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
