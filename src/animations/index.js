@@ -1,5 +1,4 @@
 import Fall from "./fall";
 import Sneak from "./sneak";
 
-
-export  {Fall,Sneak};
+export { Fall, Sneak };
