@@ -12,5 +12,5 @@ export const SneakComponent = Template.bind({});
 
 
 SneakComponent.args = {
-   label: 'Sneak',
+   children: 'Sneak',
 };

@@ -100,12 +100,12 @@ const sneak = {
   }
 };
  
-const Sneak = ({ selectVariant, label }) => {
+const Sneak = ({ selectVariant, children }) => {
   return (
     <Container  className={''}  >
       
-      <Word animate={sneak}>{(label.length) ? label.charAt(0) : ''} </Word>
-      <span>{(label.length) ? label.substring(1,label.length) : ''}</span>
+      <Word animate={sneak}>{(children.length) ? children.charAt(0) : ''} </Word>
+      <span>{(children.length) ? children.substring(1,children.length) : ''}</span>
     </Container>
   );
 };
@@ -125,7 +125,7 @@ const Word = styled(motion.div)`
  `;
 
 Sneak.propTypes = {
-  label: PropTypes.string.isRequired, 
+  children: PropTypes.string.isRequired, 
 };
 Sneak.displayName = "Sneak";
 
