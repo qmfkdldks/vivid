@@ -90,7 +90,8 @@ Every component should have following files
 new-component
 ├── index.js(x) // export a text animation component
 ├── story.jsx // at least one story
-└── test.js // should test different props
+└── __tests__ // test folder
+    └── index.js // should test different props
 ```
 
 ### Component
@@ -103,7 +104,9 @@ new-component
 ├── component.jsx
 ├── index.js(x)
 ├── story.jsx
-└── test.js should import component
+└── __tests__ // test folder
+    ├── component.js // should test the component
+    └── index.js // should test external communication or data logic
 ```
 
 component.jsx
