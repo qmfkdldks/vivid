@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { times } from "lodash";
 import PropTypes from "prop-types";
-/*import './kung.css';*/
+
 
 const variants = {
   visible: {
@@ -100,7 +100,7 @@ const sneak = {
   }
 };
  
-const Sneak = ({ meta = {}, selectVariant, label }) => {
+const Sneak = ({ selectVariant, label }) => {
   return (
     <Container  className={''}  >
       
