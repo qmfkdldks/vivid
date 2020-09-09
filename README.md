@@ -79,6 +79,52 @@ yarn install
 yarn dev
 ```
 
+# Folder structure convention
+
+### Animation
+
+When you create new text animation
+Every component should have following files
+
+```
+new-component
+├── index.js(x) // export a text animation component
+├── story.jsx // at least one story
+└── __tests__ // test folder
+    └── index.js // should test different props
+```
+
+### Component
+
+When you create new component
+Every component should have following files
+
+```
+new-component
+├── component.jsx
+├── index.js(x)
+├── story.jsx
+└── __tests__ // test folder
+    ├── component.js // should test the component
+    └── index.js // should test external communication or data logic
+```
+
+component.jsx
+shouldn't interact with api or external sources directly. Always get callbacks as props. This makes super easy to test the component
+
+index.js:
+here we preprocess necessary data and inject data as props to the component. Here we disconnect dependency between external data source with the vidual component
+
+style.js:
+export all styled object generated from styled-component. `component.jsx` imports styled objects. This way we no longer will have direct tag use in `component.jsx`
+
+story.jsx:
+component specific storybook implementation. You should add different stories for the component to simulate different situations. Highly recommended to use [addons](https://storybook.js.org/addons/)
+
+# Lint
+
+We recommend you to use `yarn lint` before pushing new feature branch to remote git server
+
 ## License
 
 MIT © [qmfkdldks](https://github.com/qmfkdldks)
