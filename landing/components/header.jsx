@@ -1,8 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Kung from '../vivid/kung'
-import Shake from '../vivid/shake'
-import Minimize from '../vivid/minimize'
 import { CodeBlock, nord } from 'react-code-blocks'
 
 const Header = () => (
@@ -29,21 +26,6 @@ const Header = () => (
         src='https://cdn.worldvectorlogo.com/logos/react.svg'
       />
     </Left>
-    <Example>
-      <h1>
-        <Kung>Fall</Kung> into sleep
-      </h1>
-      <h1>
-        The world is <Shake>shaking</Shake>
-      </h1>
-      <h1>
-        Have you seen anything <Minimize>smaller</Minimize> than this?
-      </h1>
-      <img
-        style={{ width: '100%' }}
-        src='https://cdn.dribbble.com/users/218750/screenshots/3187898/things.gif'
-      />
-    </Example>
   </Container>
 )
 
