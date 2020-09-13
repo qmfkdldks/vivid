@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import {Zap} from '@styled-icons/octicons';
-import {Bold, Italic, Underline} from '@styled-icons/feather';
+import { Zap } from "@styled-icons/octicons";
+import { Bold, Italic, Underline } from "@styled-icons/feather";
 
 export const Button = styled.button`
   cursor: pointer;

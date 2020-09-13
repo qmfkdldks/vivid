@@ -3,7 +3,14 @@ import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import Leaf from "./components/Leaf";
-import { Button, Icon, Toolbar, BoldIcon, ItalicIcon, UnderlineIcon } from "./style";
+import {
+  Button,
+  Icon,
+  Toolbar,
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
+} from "./style";
 
 const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
@@ -14,20 +21,16 @@ const VividEditor = ({ initialValue }) => {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
-      <MarkButton >
-          Title
-        </MarkButton>
-        <MarkButton >
-          Subtitle
-        </MarkButton>
+        <MarkButton>Title</MarkButton>
+        <MarkButton>Subtitle</MarkButton>
         <MarkButton format="bold">
-          <BoldIcon/>
+          <BoldIcon />
         </MarkButton>
         <MarkButton format="italic">
-          <ItalicIcon/>
+          <ItalicIcon />
         </MarkButton>
-        <MarkButton format="code">
-          <UnderlineIcon/>
+        <MarkButton format="underline">
+          <UnderlineIcon />
         </MarkButton>
       </Toolbar>
       <Editable
