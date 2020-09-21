@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Zap } from "@styled-icons/octicons";
 import { Bold, Italic, Underline } from "@styled-icons/feather";
 
 export const Button = styled.button`
@@ -13,8 +12,9 @@ export const Button = styled.button`
 `;
 
 export const Icon = styled.span`
-  font-size: 18px;
-  vertical-align: text-bottom;
+  font-size: 16px;
+  vertical-align: middle;
+  color: black;
 `;
 
 export const Toolbar = styled.div`

@@ -21,8 +21,6 @@ const VividEditor = ({ initialValue }) => {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
-        <MarkButton>Title</MarkButton>
-        <MarkButton>Subtitle</MarkButton>
         <MarkButton format="bold">
           <BoldIcon />
         </MarkButton>
@@ -32,6 +30,8 @@ const VividEditor = ({ initialValue }) => {
         <MarkButton format="underline">
           <UnderlineIcon />
         </MarkButton>
+        <BlockButton format="heading-one" icon="h1" />
+        <BlockButton format="heading-three" icon="h3" />
       </Toolbar>
       <Editable
         renderElement={renderElement}
@@ -46,12 +46,11 @@ const VividEditor = ({ initialValue }) => {
 
 const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(editor, format);
-
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
   });
 
-  if (!isActive && isList) {
+  if (!isActive) {
     const block = { type: format, children: [] };
     Transforms.wrapNodes(editor, block);
   }
@@ -86,6 +85,8 @@ const Element = ({ attributes, children, element }) => {
       return <h1 {...attributes}>{children}</h1>;
     case "heading-two":
       return <h2 {...attributes}>{children}</h2>;
+    case "heading-three":
+      return <h3 {...attributes}>{children}</h3>;
     default:
       return <p {...attributes}>{children}</p>;
   }
@@ -111,8 +112,7 @@ const MarkButton = ({ format, children }) => {
   return (
     <Button
       active={isMarkActive(editor, format)}
-      onMouseDown={(event) => {
-        event.preventDefault();
+      onClick={() => {
         toggleMark(editor, format);
       }}
     >
