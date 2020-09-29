@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { times } from "lodash";
 import PropTypes from "prop-types";
-
+ 
 const variants = {
   visible: {
     opacity: [0, 1],
@@ -99,14 +99,20 @@ const sneak = {
   },
 };
 
-const Sneak = ({ selectVariant, children }) => {
+const Sneak = ({  children, enabled }) => {
+   
+  if (!enabled) {
+    return <Container className={""}><span>{children}</span></Container>;
+  }
+  
   return (
-    <Container className={""}>
-      <Word animate={sneak}>{children.length ? children.charAt(0) : ""} </Word>
+   <Container className={""}>
+        <Word animate={sneak}>{children.length ? children.charAt(0) : ""} </Word>
       <span>
         {children.length ? children.substring(1, children.length) : ""}
-      </span>
+      </span>    
     </Container>
+    
   );
 };
 

@@ -3,15 +3,39 @@ import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import Leaf from "./components/Leaf";
-import { Button, Icon, Toolbar } from "./style";
+import { Button, Icon, Toolbar, AnimationSingleButton, ToolbarBottom  } from "./style";
+import {  Sneak} from "./animations/index";
 
 const VividEditor = ({ initialValue }) => {
+  const [activeSneak, setValueSneak] = useState(false);
+
   const [value, setValue] = useState(initialValue);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
+  const AnimationButton = ({ format, children }) => {
+      return (
+      <AnimationSingleButton  
+      onMouseOver={(event) => {
+        event.preventDefault();
+        setValueSneak(true);
+      }}
+
+      onMouseLeave={(event) => {
+        event.preventDefault();
+        setValueSneak(false);
+      ;
+      }}
+    >
+       {children}
+      </AnimationSingleButton>
+    );
+  };
+
+
   return (
+    <div>
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
         <MarkButton format="bold">Bold</MarkButton>
@@ -25,9 +49,18 @@ const VividEditor = ({ initialValue }) => {
         spellCheck
         autoFocus
       />
+    <ToolbarBottom>
+      <AnimationButton  format="" >
+          <Sneak  enabled={activeSneak}>
+            Testing   
+           </Sneak>
+      </AnimationButton>   
+       </ToolbarBottom>
     </Slate>
+    </div>
   );
 };
+
 
 const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(editor, format);
@@ -90,6 +123,8 @@ const BlockButton = ({ format, icon }) => {
     </Button>
   );
 };
+
+
 
 const MarkButton = ({ format, children }) => {
   const editor = useSlate();

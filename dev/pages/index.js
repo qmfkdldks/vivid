@@ -1,6 +1,6 @@
 import React from 'react'
 import { Editor } from 'vivid-editor'
-
+ 
 const initialValue = [
   {
     type: 'paragraph',
