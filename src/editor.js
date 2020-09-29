@@ -3,8 +3,15 @@ import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import Leaf from "./components/Leaf";
-import { Button, Icon, Toolbar, AnimationSingleButton, ToolbarBottom  } from "./style";
-import {  Sneak} from "./animations/index";
+import {
+  Button,
+  Icon,
+  Toolbar,
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
+} from "./style";
+import {  Sneak} from "./animations/index"; 
 
 const VividEditor = ({ initialValue }) => {
   const [activeSneak, setValueSneak] = useState(false);
@@ -38,9 +45,17 @@ const VividEditor = ({ initialValue }) => {
     <div>
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
-        <MarkButton format="bold">Bold</MarkButton>
-        <MarkButton format="italic">Italic</MarkButton>
-        <MarkButton format="code">Underline</MarkButton>
+        <MarkButton format="bold">
+          <BoldIcon />
+        </MarkButton>
+        <MarkButton format="italic">
+          <ItalicIcon />
+        </MarkButton>
+        <MarkButton format="underline">
+          <UnderlineIcon />
+        </MarkButton>
+        <BlockButton format="heading-one" icon="h1" />
+        <BlockButton format="heading-three" icon="h3" />
       </Toolbar>
       <Editable
         renderElement={renderElement}
@@ -64,12 +79,11 @@ const VividEditor = ({ initialValue }) => {
 
 const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(editor, format);
-
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
   });
 
-  if (!isActive && isList) {
+  if (!isActive) {
     const block = { type: format, children: [] };
     Transforms.wrapNodes(editor, block);
   }
@@ -104,6 +118,8 @@ const Element = ({ attributes, children, element }) => {
       return <h1 {...attributes}>{children}</h1>;
     case "heading-two":
       return <h2 {...attributes}>{children}</h2>;
+    case "heading-three":
+      return <h3 {...attributes}>{children}</h3>;
     default:
       return <p {...attributes}>{children}</p>;
   }
@@ -131,8 +147,7 @@ const MarkButton = ({ format, children }) => {
   return (
     <Button
       active={isMarkActive(editor, format)}
-      onMouseDown={(event) => {
-        event.preventDefault();
+      onClick={() => {
         toggleMark(editor, format);
       }}
     >
