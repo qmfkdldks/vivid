@@ -63,6 +63,7 @@
   ],
   "dependencies": {
     "framer-motion": "^1.10.3",
+    "react-intersection-observer": "^8.29.0",
     "slate": "^0.57.3",
     "slate-history": "^0.57.3",
     "slate-react": "^0.57.3",
@@ -70,6 +71,8 @@
     "styled-icons": "^10.2.1"
   },
   "jest": {
-    "snapshotSerializers": ["enzyme-to-json/serializer"]
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   }
 }
