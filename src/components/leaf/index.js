@@ -1,7 +1,8 @@
 import React from "react";
 import Sneak from "../../animations/sneak";
+import { MODES } from "../withMode";
 
-const Leaf = ({ attributes, children, mode, leaf = {} }) => {
+const Leaf = ({ attributes, children, mode = MODES.REPEAT, leaf = {} }) => {
   if (leaf.sneak) {
     return (
       <Sneak mode={mode} {...attributes}>

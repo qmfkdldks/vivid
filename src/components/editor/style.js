@@ -18,8 +18,7 @@ export const Button = styled.button`
 
 export const Toolbar = styled.div`
   position: sticky;
-  padding: 1px 18px 17px;
-  margin: 0 -20px;
+  padding: 4px 0px;
   border-bottom: 2px solid #eee;
   margin-bottom: 20px;
   display: flex;

@@ -28,7 +28,7 @@ const VividEditor = ({ initialValue }) => {
         <MarkButton format="underline">
           <UnderlineIcon />
         </MarkButton>
-        <MarkButton format={Sneak.displayName}>
+        <MarkButton format="sneak">
           <Sneak mode={MODES.HOVER}>Sneak</Sneak>
         </MarkButton>
       </Toolbar>
