@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import Sneak from "../../../animations/sneak";
+import Sneak from "../../../animations/sneak/component";
 import withMode, { MODES } from "../index";
 import { useInView } from "react-intersection-observer";
 

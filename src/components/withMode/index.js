@@ -52,6 +52,8 @@ const withMode = (AnimationComponent) => {
         return InView(AnimationComponent, props);
       case MODES.HOVER:
         return Hover(AnimationComponent, props);
+      default:
+        return <AnimationComponent {...props} />;
     }
   };
 

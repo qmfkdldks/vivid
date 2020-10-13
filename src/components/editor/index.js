@@ -2,15 +2,11 @@ import React, { useCallback, useMemo, useState } from "react";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
-import Leaf from "./components/Leaf";
-import {
-  Button,
-  Icon,
-  Toolbar,
-  BoldIcon,
-  ItalicIcon,
-  UnderlineIcon,
-} from "./style";
+import Leaf from "../leaf";
+import Element from "../element";
+import { Button, Toolbar, BoldIcon, ItalicIcon, UnderlineIcon } from "./style";
+import Sneak from "../../animations/sneak";
+import { MODES } from "../withMode";
 
 const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
@@ -21,6 +17,8 @@ const VividEditor = ({ initialValue }) => {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
+        <BlockButton format="heading-two">Title</BlockButton>
+        <BlockButton format="heading-four">Subtitle</BlockButton>
         <MarkButton format="bold">
           <BoldIcon />
         </MarkButton>
@@ -30,15 +28,14 @@ const VividEditor = ({ initialValue }) => {
         <MarkButton format="underline">
           <UnderlineIcon />
         </MarkButton>
-        <BlockButton format="heading-one" icon="h1" />
-        <BlockButton format="heading-three" icon="h3" />
+        <MarkButton format={Sneak.displayName}>
+          <Sneak mode={MODES.HOVER}>Sneak</Sneak>
+        </MarkButton>
       </Toolbar>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder="Enter some rich text…"
-        spellCheck
-        autoFocus
       />
     </Slate>
   );
@@ -46,14 +43,14 @@ const VividEditor = ({ initialValue }) => {
 
 const toggleBlock = (editor, format) => {
   const isActive = isBlockActive(editor, format);
-  Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format,
-  });
 
-  if (!isActive) {
-    const block = { type: format, children: [] };
-    Transforms.wrapNodes(editor, block);
-  }
+  Transforms.setNodes(
+    editor,
+    {
+      type: isActive ? null : format,
+    },
+    { match: (n) => Editor.isBlock(editor, n) }
+  );
 };
 
 const toggleMark = (editor, format) => {
@@ -79,21 +76,9 @@ const isMarkActive = (editor, format) => {
   return marks ? marks[format] === true : false;
 };
 
-const Element = ({ attributes, children, element }) => {
-  switch (element.type) {
-    case "heading-one":
-      return <h1 {...attributes}>{children}</h1>;
-    case "heading-two":
-      return <h2 {...attributes}>{children}</h2>;
-    case "heading-three":
-      return <h3 {...attributes}>{children}</h3>;
-    default:
-      return <p {...attributes}>{children}</p>;
-  }
-};
-
-const BlockButton = ({ format, icon }) => {
+const BlockButton = ({ format, children }) => {
   const editor = useSlate();
+
   return (
     <Button
       active={isBlockActive(editor, format)}
@@ -102,7 +87,7 @@ const BlockButton = ({ format, icon }) => {
         toggleBlock(editor, format);
       }}
     >
-      <Icon>{icon}</Icon>
+      {children}
     </Button>
   );
 };

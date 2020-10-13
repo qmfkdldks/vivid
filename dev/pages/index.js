@@ -29,10 +29,6 @@ const initialValue = [
     ]
   },
   {
-    type: 'block-quote',
-    children: [{ text: 'A wise quote.' }]
-  },
-  {
     type: 'paragraph',
     children: [{ text: 'Try it out for yourself!' }]
   }
@@ -41,9 +37,9 @@ const initialValue = [
 
 const App = () => {
   return (
-    <div>
+    <>
       <Editor initialValue={initialValue} />
-    </div>
+    </>
   )
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import Sneak from "./index";
+import Sneak from "./component";
 
 export default {
   title: "Animations/Sneak",
