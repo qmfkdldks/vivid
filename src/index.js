@@ -1,3 +1,5 @@
-import Editor from "./editor";
+import Editor from "./components/editor";
+import Renderer from "./components/renderer";
+import { MODES } from "./components/withMode";
 
-export { Editor };
+export { Editor, Renderer, MODES };

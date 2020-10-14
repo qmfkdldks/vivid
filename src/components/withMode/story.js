@@ -1,6 +1,6 @@
 import React from "react";
 import withMode, { MODES } from "./index";
-import Sneak from "../../animations/sneak";
+import Sneak from "../../animations/sneak/component";
 
 const Component = withMode(Sneak);
 

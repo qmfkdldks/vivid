@@ -1,28 +1,28 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { Bold, Italic, Underline } from "@styled-icons/feather";
 
 export const Button = styled.button`
   cursor: pointer;
-  color: ${({ reversed, active }) =>
-    reversed ? (active ? "white" : "#aaa") : active ? "black" : "#ccc"};
-  font-size: vw;
+  color: ${({ active }) => (active ? "#011627" : "#b7b7a4")};
+  font-size: 21px;
   padding: 0;
   border: none;
   background: none;
-`;
+  letter-spacing: 1.3px;
 
-export const Icon = styled.span`
-  font-size: 16px;
-  vertical-align: middle;
-  color: black;
+  &:focus {
+    border-style: outset;
+    border: none;
+  }
 `;
 
 export const Toolbar = styled.div`
   position: sticky;
-  padding: 1px 18px 17px;
-  margin: 0 -20px;
+  padding: 4px 0px;
   border-bottom: 2px solid #eee;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 
   & > * {
     display: inline-block;
@@ -33,20 +33,20 @@ export const Toolbar = styled.div`
   }
 `;
 
+const sharedStyle = css`
+  width: 23px;
+  height: 23px;
+  stroke-width: 2;
+`;
+
 export const BoldIcon = styled(Bold)`
-  color: black;
-  width: 16px;
-  height: 16px;
+  ${sharedStyle}
 `;
 
 export const ItalicIcon = styled(Italic)`
-  color: black;
-  width: 16px;
-  height: 16px;
+  ${sharedStyle}
 `;
 
 export const UnderlineIcon = styled(Underline)`
-  color: black;
-  width: 16px;
-  height: 16px;
+  ${sharedStyle}
 `;

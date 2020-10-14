@@ -1,6 +1,6 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Sneak from "../index";
+import Sneak from "../component";
 
 describe("Sneak", () => {
   it("should render successfully", () => {
