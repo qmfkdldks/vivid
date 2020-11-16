@@ -26,10 +26,7 @@ const zeros = (seed = 0) => {
 
 const variants = {
   start: {
-    opacity: [
-      ...recursive(zeros, 0, 2),
-      ...recursive(zeros, 1, 5),
-    ],
+    opacity: [...recursive(zeros, 0, 2), ...recursive(zeros, 1, 5)],
     scaleX: [
       ...recursive(zeros, 1, 2),
       ...recursive(jumpWidth, 0, 1),
