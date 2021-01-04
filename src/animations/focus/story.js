@@ -1,9 +1,9 @@
 import React from "react";
-import Sneak from "./component";
+import Focus from "./component";
 
 export default {
-  title: "Animations/Sneak",
-  component: Sneak,
+  title: "Animations/Focus",
+  component: Focus,
   argTypes: {
     children: {
       name: "children",
@@ -35,11 +35,11 @@ export default {
   ],
 };
 
-const Template = (args) => <Sneak {...args} />;
+const Template = (args) => <Focus {...args} />;
 
 export const Basic = Template.bind({});
 
 Basic.args = {
-  children: "sneak",
+  children: "focus",
   control: "start",
 };
