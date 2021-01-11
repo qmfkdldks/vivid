@@ -1,9 +1,9 @@
 import React from "react";
-import Fall from "./component";
+import Levitation from "./component";
 
 export default {
-  title: "Animations/Fall",
-  component: Fall,
+  title: "Animations/Levitation",
+  component: Levitation,
   argTypes: {
     children: {
       name: "children",
@@ -20,12 +20,12 @@ export default {
   },
 };
 
-const Template = (args) => <Fall {...args} />;
+const Template = (args) => <Levitation {...args} />;
 
 export const Basic = Template.bind({});
 
 Basic.args = {
-  children: "fall",
+  children: "levitacion",
   control: "start",
 };
 
@@ -40,7 +40,7 @@ Basic.decorators = [
 export const Paragraph = Template.bind({});
 
 Paragraph.args = {
-  children: "fall",
+  children: "gravity",
   control: "start",
 };
 
@@ -49,8 +49,7 @@ Paragraph.decorators = [
     <div style={{ maxWidth: "300px" }}>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
       bibendum tortor, eget <Story /> rhoncus leo varius id. Donec in accumsan
-      tortor. Proin consequat dui id velit faucibus ultricies. Aliquam in tellus
-      a justo porttitor bibendum a et nibh.
+      tortor. Proin consequat dui id
     </div>
   ),
 ];

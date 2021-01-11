@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Focus should render successfully 1`] = `
+<Styled(Component)
+  transition={
+    Object {
+      "duration": 1,
+      "ease": "easeIn",
+    }
+  }
+  variants={
+    Object {
+      "start": Object {
+        "filter": Array [
+          "blur(0px)",
+          "blur(3px)",
+          "blur(0px)",
+          "blur(7px)",
+          "blur(0px)",
+          "blur(0px)",
+        ],
+      },
+    }
+  }
+>
+  text
+</Styled(Component)>
+`;

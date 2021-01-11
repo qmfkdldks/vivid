@@ -7,7 +7,6 @@ const Component = withMode(Sneak);
 export default {
   title: "components/withMode",
   description: "HOC component which adds different animation triggers",
-  component: Component,
   argTypes: {
     children: {
       name: "children",

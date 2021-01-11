@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Focus should render successfully 1`] = `
-<Focus>
-  Hide and sneak
-</Focus>
-`;

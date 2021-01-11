@@ -191,6 +191,6 @@ exports[`Fall should render successfully 1`] = `
     }
   }
 >
-  Hide and Fall
+  Text
 </Styled(Component)>
 `;

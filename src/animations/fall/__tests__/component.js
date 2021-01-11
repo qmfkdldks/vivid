@@ -4,7 +4,7 @@ import Fall from "../component";
 
 describe("Fall", () => {
   it("should render successfully", () => {
-    const component = shallow(<Fall>Hide and Fall</Fall>);
+    const component = shallow(<Fall>Text</Fall>);
     expect(component).toMatchSnapshot();
   });
 });
