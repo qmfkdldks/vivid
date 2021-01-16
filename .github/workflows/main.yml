@@ -28,3 +28,13 @@ jobs:
         clover_file: "coverage/clover.xml"
         threshold_alert: 10
         threshold_warning: 50
+  bundlecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: carlesnunez/check-my-bundlephobia@v1.6.0
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          strict: true
+          threshold: 500
+          ignore-dev-dependencies: true

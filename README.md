@@ -127,4 +127,4 @@ We recommend you to use `yarn lint` before pushing new feature branch to remote 
 
 ## License
 
-MIT © [qmfkdldks](https://github.com/qmfkdldks)
+MIT

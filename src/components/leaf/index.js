@@ -2,6 +2,25 @@ import React from "react";
 import Sneak from "../../animations/sneak";
 import { MODES } from "../withMode";
 
+/**
+ * Functional Component
+ * renders inline text element given by slate editor.
+ * editor passes leaf object when it renders text.
+ * this component is important since text animation components get rendred in this component.
+ * you can set several values in leaf object using slate api.
+ *
+ * @param  {additional elment attributes} attributes
+ * @param  {inner content of the element} children
+ * @param  {animation behaviour flag (REPEAT, HOVER, INVIEW)} mode
+ * @param  {object that contains animation component info} leaf
+ *
+ * @return animation component or inline text element. if no element type found, it returns span element.
+ *
+ * @test
+ * it should evaluate element type and render corresponding text animation components.
+ * it should contain children in element
+ * when no element type was found, it renders `span`element
+ */
 const Leaf = ({ attributes, children, mode = MODES.REPEAT, leaf = {} }) => {
   if (leaf.sneak) {
     return (

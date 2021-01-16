@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 import Leaf from "../leaf";

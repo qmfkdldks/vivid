@@ -1,21 +1,6 @@
 import styled, { css } from "styled-components";
 import { Bold, Italic, Underline } from "@styled-icons/feather";
 
-export const Button = styled.button`
-  cursor: pointer;
-  color: ${({ active }) => (active ? "#011627" : "#b7b7a4")};
-  font-size: 21px;
-  padding: 0;
-  border: none;
-  background: none;
-  letter-spacing: 1.3px;
-
-  &:focus {
-    border-style: outset;
-    border: none;
-  }
-`;
-
 export const Toolbar = styled.div`
   position: sticky;
   padding: 4px 0px;
