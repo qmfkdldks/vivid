@@ -18,21 +18,6 @@ export default {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <div style={{ margin: "3em", fontSize: "29px" }}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
-        bibendum tortor, eget <Story /> rhoncus leo varius id. Donec in accumsan
-        tortor. Proin consequat dui id velit faucibus ultricies. Aliquam in
-        tellus a justo porttitor bibendum a et nibh. Proin eget nulla bibendum,
-        accumsan massa ut, bibendum sapien. Suspendisse luctus, purus tempor
-        consequat mattis, eros enim congue velit, ac porttitor ex magna at enim.
-        Cras in lacinia eros. Nulla maximus ultricies lorem. Mauris et urna
-        blandit, commodo lorem at, lacinia sapien. Pellentesque et velit id nunc
-        facilisis placerat. Praesent vitae sapien non felis ultricies tincidunt.
-      </div>
-    ),
-  ],
 };
 
 const Template = (args) => <Sneak {...args} />;
@@ -43,3 +28,34 @@ Basic.args = {
   children: "sneak",
   control: "start",
 };
+
+Basic.decorators = [
+  (Story) => (
+    <div style={{ padding: "20px", fontSize: "46px" }}>
+      <Story />
+    </div>
+  ),
+];
+
+export const Paragraph = Template.bind({});
+
+Paragraph.args = {
+  children: "sneak",
+  control: "start",
+};
+
+Paragraph.decorators = [
+  (Story) => (
+    <div style={{ maxWidth: "300px" }}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum
+      bibendum tortor, eget <Story /> rhoncus leo varius id. Donec in accumsan
+      tortor. Proin consequat dui id velit faucibus ultricies. Aliquam in tellus
+      a justo porttitor bibendum a et nibh. Proin eget nulla bibendum, accumsan
+      massa ut, bibendum sapien. Suspendisse luctus, purus tempor consequat
+      mattis, eros enim congue velit, ac porttitor ex magna at enim. Cras in
+      lacinia eros. Nulla maximus ultricies lorem. Mauris et urna blandit,
+      commodo lorem at, lacinia sapien. Pellentesque et velit id nunc facilisis
+      placerat. Praesent vitae sapien non felis ultricies tincidunt.
+    </div>
+  ),
+];
