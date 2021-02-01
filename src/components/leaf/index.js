@@ -1,6 +1,7 @@
 import React from "react";
-import Sneak from "../../animations/sneak";
+import animations from "../../animations";
 import { MODES } from "../withMode";
+import { has, find } from "lodash";
 
 /**
  * Functional Component
@@ -21,12 +22,14 @@ import { MODES } from "../withMode";
  * it should contain children in element
  * when no element type was found, it renders `span`element
  */
-const Leaf = ({ attributes, children, mode = MODES.REPEAT, leaf = {} }) => {
-  if (leaf.sneak) {
+const Leaf = ({ attributes, children, mode, leaf }) => {
+  let animationKey;
+  if ((animationKey = find(Object.keys(animations), (key) => has(leaf, key)))) {
+    const Animation = animations[animationKey];
     return (
-      <Sneak mode={mode} {...attributes}>
+      <Animation mode={mode} {...attributes}>
         {leaf.text}
-      </Sneak>
+      </Animation>
     );
   }
 
@@ -43,6 +46,11 @@ const Leaf = ({ attributes, children, mode = MODES.REPEAT, leaf = {} }) => {
   }
 
   return <span {...attributes}>{children}</span>;
+};
+
+Leaf.defaultProps = {
+  mode: MODES.REPEAT,
+  leaf: {},
 };
 
 export default Leaf;

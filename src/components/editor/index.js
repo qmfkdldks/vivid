@@ -6,14 +6,18 @@ import Leaf from "../leaf";
 import Element from "../element";
 import MarkButton from "../MarkButton";
 import BlockButton from "../BlockButton";
-import { Toolbar, BoldIcon, ItalicIcon, UnderlineIcon } from "./style";
-import Sneak from "../../animations/sneak";
+import { Toolbar, BoldIcon, ItalicIcon, UnderlineIcon, Button } from "./style";
+import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
 
 const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
+  const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
+  const renderLeaf = useCallback(
+    (props) => <Leaf {...props} mode={mode} />,
+    [mode]
+  );
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
@@ -30,15 +34,37 @@ const VividEditor = ({ initialValue }) => {
         <MarkButton format="underline">
           <UnderlineIcon />
         </MarkButton>
-        <MarkButton format="sneak">
-          <Sneak mode={MODES.HOVER}>Sneak</Sneak>
-        </MarkButton>
+        <Button
+          type="button"
+          active={mode === MODES.HOVER}
+          disabled={mode === MODES.HOVER}
+          onClick={() => setMode(MODES.HOVER)}
+        >
+          HOVER
+        </Button>
+        <Button
+          type="button"
+          active={mode === MODES.REPEAT}
+          disabled={mode === MODES.REPEAT}
+          onClick={() => setMode(MODES.REPEAT)}
+        >
+          REPEAT
+        </Button>
+        <Button
+          type="button"
+          active={mode === MODES.INVIEW}
+          disabled={mode === MODES.INVIEW}
+          onClick={() => setMode(MODES.INVIEW)}
+        >
+          INVIEW
+        </Button>
       </Toolbar>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder="Enter some rich text…"
       />
+      <AnimationList />
     </Slate>
   );
 };
