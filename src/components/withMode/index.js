@@ -8,7 +8,6 @@ export const MODES = {
   HOVER: "HOVER",
 };
 
-
 /**
  * Functional Component
  * returns a animation component to repeat animation infinietly
@@ -33,7 +32,6 @@ export const Repeat = (AnimationComponent, props) => {
   );
 };
 
-
 /**
  * Functional Component
  * returns a animation component within span element that trigger animation when the span is visible on screen.
@@ -56,7 +54,6 @@ const InView = (AnimationComponent, props) => {
     </span>
   );
 };
-
 
 /**
  * Functional Component

@@ -4,7 +4,7 @@ import MarkButton from "../index";
 
 describe("MarkButton", () => {
   it("should render successfully", () => {
-  //   const component = shallow(<MarkButton />);
-  //   expect(component).toMatchSnapshot();
+    //   const component = shallow(<MarkButton />);
+    //   expect(component).toMatchSnapshot();
   });
 });

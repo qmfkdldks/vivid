@@ -14,10 +14,9 @@ const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
   const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
-  const renderLeaf = useCallback(
-    (props) => <Leaf {...props} mode={mode} />,
-    [mode]
-  );
+  const renderLeaf = useCallback((props) => <Leaf {...props} mode={mode} />, [
+    mode,
+  ]);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (

@@ -1,5 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Element renders successfully 1`] = `<h2 />`;
-
-exports[`Element should render successfully 1`] = `<h2 />`;

@@ -29,7 +29,7 @@ const AnimationList = () => {
       {Object.keys(animations).map((key) => {
         const Animation = animations[key];
         return (
-          <MarkButton format={key}>
+          <MarkButton key={key} format={key}>
             <Animation mode={MODES.HOVER}>{key}</Animation>
           </MarkButton>
         );
