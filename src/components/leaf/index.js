@@ -1,7 +1,7 @@
 import React from "react";
 import animations from "../../animations";
 import { MODES } from "../withMode";
-import { has, find } from "lodash";
+import { has, find } from "lodash-es";
 
 /**
  * Functional Component

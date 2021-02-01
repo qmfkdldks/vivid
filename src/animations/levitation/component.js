@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { random, map, isEmpty } from "lodash";
+import { random, map, isEmpty } from "lodash-es";
 
 const rotate = () => {
   return {
