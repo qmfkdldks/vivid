@@ -1,17 +1,22 @@
 import React, { useCallback, useMemo, useState } from "react";
-import { Editable, withReact, useSlate, Slate } from "slate-react";
-import { Editor, Transforms, createEditor } from "slate";
+import { Editable, withReact, Slate } from "slate-react";
+import { createEditor } from "slate";
 import { withHistory } from "slate-history";
 import Leaf from "../leaf";
 import Element from "../element";
-import { Button, Toolbar, BoldIcon, ItalicIcon, UnderlineIcon } from "./style";
-import Sneak from "../../animations/sneak";
+import MarkButton from "../MarkButton";
+import BlockButton from "../BlockButton";
+import { Toolbar, BoldIcon, ItalicIcon, UnderlineIcon, Button } from "./style";
+import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
 
 const VividEditor = ({ initialValue }) => {
   const [value, setValue] = useState(initialValue);
+  const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
+  const renderLeaf = useCallback((props) => <Leaf {...props} mode={mode} />, [
+    mode,
+  ]);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
@@ -28,81 +33,38 @@ const VividEditor = ({ initialValue }) => {
         <MarkButton format="underline">
           <UnderlineIcon />
         </MarkButton>
-        <MarkButton format="sneak">
-          <Sneak mode={MODES.HOVER}>Sneak</Sneak>
-        </MarkButton>
+        <Button
+          type="button"
+          active={mode === MODES.HOVER}
+          disabled={mode === MODES.HOVER}
+          onClick={() => setMode(MODES.HOVER)}
+        >
+          HOVER
+        </Button>
+        <Button
+          type="button"
+          active={mode === MODES.REPEAT}
+          disabled={mode === MODES.REPEAT}
+          onClick={() => setMode(MODES.REPEAT)}
+        >
+          REPEAT
+        </Button>
+        <Button
+          type="button"
+          active={mode === MODES.INVIEW}
+          disabled={mode === MODES.INVIEW}
+          onClick={() => setMode(MODES.INVIEW)}
+        >
+          INVIEW
+        </Button>
       </Toolbar>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder="Enter some rich text…"
       />
+      <AnimationList />
     </Slate>
-  );
-};
-
-const toggleBlock = (editor, format) => {
-  const isActive = isBlockActive(editor, format);
-
-  Transforms.setNodes(
-    editor,
-    {
-      type: isActive ? null : format,
-    },
-    { match: (n) => Editor.isBlock(editor, n) }
-  );
-};
-
-const toggleMark = (editor, format) => {
-  const isActive = isMarkActive(editor, format);
-
-  if (isActive) {
-    Editor.removeMark(editor, format);
-  } else {
-    Editor.addMark(editor, format, true);
-  }
-};
-
-const isBlockActive = (editor, format) => {
-  const [match] = Editor.nodes(editor, {
-    match: (n) => n.type === format,
-  });
-
-  return !!match;
-};
-
-const isMarkActive = (editor, format) => {
-  const marks = Editor.marks(editor);
-  return marks ? marks[format] === true : false;
-};
-
-const BlockButton = ({ format, children }) => {
-  const editor = useSlate();
-
-  return (
-    <Button
-      active={isBlockActive(editor, format)}
-      onMouseDown={(event) => {
-        event.preventDefault();
-        toggleBlock(editor, format);
-      }}
-    >
-      {children}
-    </Button>
-  );
-};
-
-const MarkButton = ({ format, children }) => {
-  const editor = useSlate();
-  return (
-    <Button
-      active={isMarkActive(editor, format)}
-      onClick={() => {
-        toggleMark(editor, format);
-      }}
-    >
-      {children}
-    </Button>
   );
 };
 

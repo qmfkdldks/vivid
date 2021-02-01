@@ -2,9 +2,14 @@ import React from "react";
 import { shallow } from "enzyme";
 import Element from "../index";
 
+// * it should evaluate element type and render corresponding element
+// * it should contain children in element
+// * when no element type was found, it renders `p` element
+
+const defaultProps = { element: { type: "heading-two" } };
+
 describe("Element", () => {
-  const defaultProps = { element: { type: "heading-two" } };
-  it("should render successfully", () => {
+  it("renders successfully", () => {
     const wrapper = shallow(<Element {...defaultProps} />);
     expect(wrapper).toMatchSnapshot();
   });
