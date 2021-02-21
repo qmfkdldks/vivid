@@ -14,6 +14,9 @@ const blurVariants = {
       `blur(0px)`,
     ],
   },
+  stop: {
+    filter: "blur(0px)",
+  },
 };
 
 const Focus = ({ control, children, transition, ...props }) => {

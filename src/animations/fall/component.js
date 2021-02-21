@@ -43,6 +43,12 @@ const variants = {
       ...recursive(zeros, 0, 4),
     ],
   },
+  stop: {
+    opacity: 1,
+    scaleX: 0,
+    scaleY: 0,
+    y: 0,
+  },
 };
 
 const Fall = ({ control, children, transition, ...props }) => {

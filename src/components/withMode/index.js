@@ -71,7 +71,12 @@ const Hover = (AnimationComponent, props) => {
   const animationControls = useAnimation();
 
   return (
-    <span onMouseEnter={() => animationControls.start("start")}>
+    <span
+      onMouseEnter={() => {
+        animationControls.set("stop");
+        animationControls.start("start");
+      }}
+    >
       <AnimationComponent control={animationControls} {...props} />
     </span>
   );
