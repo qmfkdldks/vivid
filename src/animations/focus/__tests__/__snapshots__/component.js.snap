@@ -20,6 +20,9 @@ exports[`Focus should render successfully 1`] = `
           "blur(0px)",
         ],
       },
+      "stop": Object {
+        "filter": "blur(0px)",
+      },
     }
   }
 >

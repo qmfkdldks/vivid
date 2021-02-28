@@ -9,11 +9,14 @@ jest.mock("react-intersection-observer", () => ({
 }));
 
 jest.unmock("framer-motion");
+
 import * as framerMotion from "framer-motion";
 const mockStartFunction = jest.fn();
+const mockSetFunction = jest.fn();
+
 framerMotion.useAnimation = jest
   .fn()
-  .mockReturnValue({ start: mockStartFunction });
+  .mockReturnValue({ start: mockStartFunction, set: mockSetFunction });
 
 const SneakWithMode = withMode(Sneak);
 
