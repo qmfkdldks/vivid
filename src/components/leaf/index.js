@@ -1,7 +1,6 @@
 import React from "react";
 import animations from "../../animations";
 import { MODES } from "../withMode";
-import { has, find } from "lodash-es";
 
 /**
  * Functional Component
@@ -24,7 +23,11 @@ import { has, find } from "lodash-es";
  */
 const Leaf = ({ attributes, children, mode, leaf }) => {
   let animationKey;
-  if ((animationKey = find(Object.keys(animations), (key) => has(leaf, key)))) {
+  if (
+    (animationKey = Object.keys(animations).find((key) =>
+      leaf.hasOwnProperty(key)
+    ))
+  ) {
     const Animation = animations[animationKey];
     return (
       <Animation mode={mode} {...attributes}>

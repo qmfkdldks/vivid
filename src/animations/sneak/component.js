@@ -61,6 +61,14 @@ const variants = {
       -25 * 2 - 10,
     ],
   },
+  stop: {
+    opacity: 1,
+    rotate: 0,
+    scaleX: 0,
+    scaleY: 0,
+    y: 0,
+    x: 0,
+  },
 };
 
 const Sneak = ({ control, children, transition, ...props }) => {

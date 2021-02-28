@@ -63,7 +63,6 @@
   ],
   "dependencies": {
     "framer-motion": "^1.10.3",
-    "lodash-es": "^4.17.20",
     "react-intersection-observer": "^8.29.0",
     "slate": "^0.59.0",
     "slate-history": "^0.59.0",
@@ -74,9 +73,6 @@
   "jest": {
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ],
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules/(?!lodash-es)"
     ]
   }
 }

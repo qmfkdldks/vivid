@@ -2,7 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { random, map, isEmpty } from "lodash-es";
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 const rotate = () => {
   return {
@@ -14,6 +17,10 @@ const rotate = () => {
         delay: 3,
         ease: [0.45, 0, 0.55, 1],
       },
+    },
+    stop: {
+      marginRight: 0,
+      rotate: 0,
     },
   };
 };
@@ -29,6 +36,9 @@ const up = () => ({
       ease: [0.61, 1, 0.88, 1],
     },
   },
+  stop: {
+    top: 0,
+  },
 });
 
 const shake = {
@@ -39,16 +49,19 @@ const shake = {
       ease: [0.55, 0, 1, 0.45],
     },
   },
+  stop: {
+    x: 0,
+  },
 };
 
 const Levitation = ({ control, children, transition, ...props }) => {
-  if (isEmpty(children)) {
+  if (!(typeof children === "string" || children instanceof String)) {
     return null;
   }
 
   return (
     <Container {...props}>
-      {map(children, (value) => (
+      {Array.from(children).map((value) => (
         <Word key={value} animate={control} variants={rotate()}>
           <Word animate={control} variants={up()}>
             <Word animate={control} variants={shake}>
