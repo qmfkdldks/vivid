@@ -3,10 +3,7 @@ import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { ThemeProvider } from "styled-components";
-<<<<<<< HEAD
 import ReactTooltip from "react-tooltip";
-=======
->>>>>>> Add themeprovider and update colors
 import Leaf from "../leaf";
 import Element from "../element";
 import MarkButton from "../MarkButton";
@@ -23,11 +20,7 @@ import {
 } from "./style";
 import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
-<<<<<<< HEAD
 import defaultTheme from "../../constants/theme";
-=======
-import theme from "../../constants/theme";
->>>>>>> Add themeprovider and update colors
 
 const VividEditor = ({ initialValue, theme }) => {
   const [value, setValue] = useState(initialValue);
