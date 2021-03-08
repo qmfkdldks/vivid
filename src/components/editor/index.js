@@ -3,6 +3,7 @@ import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 import { withHistory } from "slate-history";
 import { ThemeProvider } from "styled-components";
+import ReactTooltip from "react-tooltip";
 import Leaf from "../leaf";
 import Element from "../element";
 import MarkButton from "../MarkButton";
@@ -53,6 +54,7 @@ const VividEditor = ({ initialValue }) => {
             active={mode === MODES.HOVER}
             disabled={mode === MODES.HOVER}
             onClick={() => setMode(MODES.HOVER)}
+            data-tip="Start animation when cursor is on the text"
           >
             <MouseIcon />
           </Button>
@@ -61,6 +63,7 @@ const VividEditor = ({ initialValue }) => {
             active={mode === MODES.REPEAT}
             disabled={mode === MODES.REPEAT}
             onClick={() => setMode(MODES.REPEAT)}
+            data-tip="Repeat animation infinitely"
           >
             <RepeatIcon />
           </Button>
@@ -69,6 +72,7 @@ const VividEditor = ({ initialValue }) => {
             active={mode === MODES.INVIEW}
             disabled={mode === MODES.INVIEW}
             onClick={() => setMode(MODES.INVIEW)}
+            data-tip="Start animation when text is in the screen"
           >
             <EyeIcon />
           </Button>
@@ -80,6 +84,7 @@ const VividEditor = ({ initialValue }) => {
         />
         <AnimationList />
       </Slate>
+      <ReactTooltip />
     </ThemeProvider>
   );
 };
