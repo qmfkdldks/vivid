@@ -20,9 +20,9 @@ import {
 } from "./style";
 import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
-import theme from "../../constants/theme";
+import defaultTheme from "../../constants/theme";
 
-const VividEditor = ({ initialValue }) => {
+const VividEditor = ({ initialValue, theme }) => {
   const [value, setValue] = useState(initialValue);
   const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
@@ -32,7 +32,7 @@ const VividEditor = ({ initialValue }) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ ...defaultTheme, ...theme }}>
       <Slate
         editor={editor}
         value={value}

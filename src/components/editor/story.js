@@ -1,5 +1,6 @@
 import React from "react";
 import Editor from "./index";
+import theme from "../../constants/theme";
 
 export default {
   title: "components/Editor",
@@ -8,6 +9,13 @@ export default {
     initialValue: {
       name: "initialValue",
       description: "a text content",
+      control: {
+        type: "object",
+      },
+    },
+    theme: {
+      name: "theme",
+      description: "a collection of colors",
       control: {
         type: "object",
       },
@@ -36,4 +44,5 @@ const initialValue = [
 
 Default.args = {
   initialValue,
+  theme,
 };
