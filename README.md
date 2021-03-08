@@ -6,7 +6,7 @@
 
 [GIF which shows the editor]
 
-Have you ever imagined a book that has words moving around and expressing their meaning visually via animation?
+Have you ever imagined a book that has words moving around and expressing their meaning visually through animation?
 
 Here we present a new text editor solution where end-users can write and read animated text contents.
 This package is backed by [slate.js](https://github.com/ianstormtaylor/slate)
