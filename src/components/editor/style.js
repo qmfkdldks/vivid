@@ -1,5 +1,12 @@
 import styled, { css } from "styled-components";
-import { Bold, Italic, Underline } from "@styled-icons/feather";
+import { Mouse } from "@styled-icons/boxicons-regular/Mouse";
+import { Eye } from "@styled-icons/entypo/Eye";
+import {
+  Repeat,
+  FormatBold as Bold,
+  FormatItalic as Italic,
+  FormatUnderlined as Underline,
+} from "@styled-icons/material-rounded";
 
 export const Toolbar = styled.div`
   position: sticky;
@@ -36,17 +43,29 @@ export const UnderlineIcon = styled(Underline)`
   ${sharedStyle}
 `;
 
+export const MouseIcon = styled(Mouse)`
+  ${sharedStyle}
+`;
+
+export const EyeIcon = styled(Eye)`
+  ${sharedStyle}
+`;
+
+export const RepeatIcon = styled(Repeat)`
+  ${sharedStyle}
+`;
+
 export const Button = styled.button`
   cursor: pointer;
-  color: ${({ active }) => (active ? "#011627" : "#b7b7a4")};
+  color: ${({ active, theme }) => (active ? theme.active : theme.default)};
   font-size: 21px;
   padding: 0;
   border: none;
   background: none;
-  letter-spacing: 1.3px;
 
   &:focus {
     border-style: outset;
     border: none;
+    outline: none;
   }
 `;

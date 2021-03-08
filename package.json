@@ -64,6 +64,7 @@
   "dependencies": {
     "framer-motion": "^1.10.3",
     "react-intersection-observer": "^8.29.0",
+    "react-tooltip": "^4.2.15",
     "slate": "^0.59.0",
     "slate-history": "^0.59.0",
     "slate-react": "^0.59.0",

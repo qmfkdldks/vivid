@@ -2,15 +2,27 @@ import React, { useCallback, useMemo, useState } from "react";
 import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 import { withHistory } from "slate-history";
+import { ThemeProvider } from "styled-components";
+import ReactTooltip from "react-tooltip";
 import Leaf from "../leaf";
 import Element from "../element";
 import MarkButton from "../MarkButton";
 import BlockButton from "../BlockButton";
-import { Toolbar, BoldIcon, ItalicIcon, UnderlineIcon, Button } from "./style";
+import {
+  Toolbar,
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
+  MouseIcon,
+  EyeIcon,
+  RepeatIcon,
+  Button,
+} from "./style";
 import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
+import defaultTheme from "../../constants/theme";
 
-const VividEditor = ({ initialValue }) => {
+const VividEditor = ({ initialValue, theme }) => {
   const [value, setValue] = useState(initialValue);
   const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
@@ -20,51 +32,60 @@ const VividEditor = ({ initialValue }) => {
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   return (
-    <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
-      <Toolbar>
-        <BlockButton format="heading-two">Title</BlockButton>
-        <BlockButton format="heading-four">Subtitle</BlockButton>
-        <MarkButton format="bold">
-          <BoldIcon />
-        </MarkButton>
-        <MarkButton format="italic">
-          <ItalicIcon />
-        </MarkButton>
-        <MarkButton format="underline">
-          <UnderlineIcon />
-        </MarkButton>
-        <Button
-          type="button"
-          active={mode === MODES.HOVER}
-          disabled={mode === MODES.HOVER}
-          onClick={() => setMode(MODES.HOVER)}
-        >
-          HOVER
-        </Button>
-        <Button
-          type="button"
-          active={mode === MODES.REPEAT}
-          disabled={mode === MODES.REPEAT}
-          onClick={() => setMode(MODES.REPEAT)}
-        >
-          REPEAT
-        </Button>
-        <Button
-          type="button"
-          active={mode === MODES.INVIEW}
-          disabled={mode === MODES.INVIEW}
-          onClick={() => setMode(MODES.INVIEW)}
-        >
-          INVIEW
-        </Button>
-      </Toolbar>
-      <Editable
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        placeholder="Enter some rich text…"
-      />
-      <AnimationList />
-    </Slate>
+    <ThemeProvider theme={{ ...defaultTheme, ...theme }}>
+      <Slate
+        editor={editor}
+        value={value}
+        onChange={(value) => setValue(value)}
+      >
+        <Toolbar>
+          <BlockButton format="heading-two">Heading</BlockButton>
+          <MarkButton format="bold">
+            <BoldIcon />
+          </MarkButton>
+          <MarkButton format="italic">
+            <ItalicIcon />
+          </MarkButton>
+          <MarkButton format="underline">
+            <UnderlineIcon />
+          </MarkButton>
+          <Button
+            type="button"
+            active={mode === MODES.HOVER}
+            disabled={mode === MODES.HOVER}
+            onClick={() => setMode(MODES.HOVER)}
+            data-tip="Start animation when cursor is on the text"
+          >
+            <MouseIcon />
+          </Button>
+          <Button
+            type="button"
+            active={mode === MODES.REPEAT}
+            disabled={mode === MODES.REPEAT}
+            onClick={() => setMode(MODES.REPEAT)}
+            data-tip="Repeat animation infinitely"
+          >
+            <RepeatIcon />
+          </Button>
+          <Button
+            type="button"
+            active={mode === MODES.INVIEW}
+            disabled={mode === MODES.INVIEW}
+            onClick={() => setMode(MODES.INVIEW)}
+            data-tip="Start animation when text is in the screen"
+          >
+            <EyeIcon />
+          </Button>
+        </Toolbar>
+        <Editable
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          placeholder="Enter some rich text…"
+        />
+        <AnimationList />
+      </Slate>
+      <ReactTooltip />
+    </ThemeProvider>
   );
 };
 
