@@ -1,4 +1,5 @@
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import Editor from "./index";
 import theme from "../../constants/theme";
 
@@ -31,18 +32,24 @@ export default {
 
 const Template = (args) => <Editor {...args} />;
 
+export const Empty = Template.bind({});
+
+Empty.args = {
+  theme,
+  onChange: action("chnaged"),
+};
+
 export const Default = Template.bind({});
 
-const initialValue = [
-  {
-    type: "paragraph",
-    children: [
-      { text: "This is editable plain text, just like a <textarea>!" },
-    ],
-  },
-];
-
 Default.args = {
-  initialValue,
+  initialValue: [
+    {
+      type: "paragraph",
+      children: [
+        { text: "This is editable plain text, just like a <textarea>!" },
+      ],
+    },
+  ],
   theme,
+  onChange: action("chnaged"),
 };

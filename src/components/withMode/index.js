@@ -6,6 +6,7 @@ export const MODES = {
   REPEAT: "REPEAT",
   INVIEW: "INVIEW",
   HOVER: "HOVER",
+  HOLD: "HOLD",
 };
 
 /**
@@ -65,7 +66,7 @@ const InView = (AnimationComponent, props) => {
  *
  * @test
  * it should call animationControls start function onMouseEnter
- * it shouold pass control props to the animation component.
+ * it should pass control props to the animation component.
  */
 const Hover = (AnimationComponent, props) => {
   const animationControls = useAnimation();
@@ -83,10 +84,42 @@ const Hover = (AnimationComponent, props) => {
 };
 
 /**
+ * Functional Component
+ * returns a animation component within span element that trigger animation on hold only.
+ *
+ * @param  {animation component} AnimationComponent
+ *
+ * @return animation component
+ *
+ * @test
+ * it should call animationControls start function onMouseEnter
+ * it should call animationControls set stop onMouseLeave
+ * it should reset animation when mouse leaves
+ */
+const Hold = (AnimationComponent, props) => {
+  const animationControls = useAnimation();
+
+  return (
+    <span
+      onMouseEnter={() => {
+        animationControls.set("stop");
+        animationControls.start("start");
+      }}
+      onMouseLeave={() => {
+        animationControls.stop();
+        animationControls.set("stop");
+      }}
+    >
+      <AnimationComponent control={animationControls} {...props} />
+    </span>
+  );
+};
+
+/**
  * HOC Component
  * returns a animation component which accepts additional mode props.
  * newly created animation component runs animation given mode
- * mode ex) REPEAT, INVIEW, HOVER
+ * mode ex) REPEAT, INVIEW, HOVER, HOLD
  *
  * @param  {animation component which will accepts mode props} AnimationComponent
  *
@@ -107,6 +140,8 @@ const withMode = (AnimationComponent) => {
         return InView(AnimationComponent, props);
       case MODES.HOVER:
         return Hover(AnimationComponent, props);
+      case MODES.HOLD:
+        return Hold(AnimationComponent, props);
       default:
         return <AnimationComponent {...props} />;
     }

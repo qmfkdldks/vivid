@@ -45,8 +45,8 @@ const variants = {
   },
   stop: {
     opacity: 1,
-    scaleX: 0,
-    scaleY: 0,
+    scaleX: 1,
+    scaleY: 1,
     y: 0,
   },
 };

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Editor should render successfully 1`] = `
+<Component
+  theme={
+    Object {
+      "active": "#06bcc1",
+      "default": "#c6c5b9",
+    }
+  }
+>
+  <Slate
+    editor={
+      Object {
+        "addMark": [Function],
+        "apply": [Function],
+        "children": Array [],
+        "deleteBackward": [Function],
+        "deleteForward": [Function],
+        "deleteFragment": [Function],
+        "getFragment": [Function],
+        "history": Object {
+          "redos": Array [],
+          "undos": Array [],
+        },
+        "insertBreak": [Function],
+        "insertData": [Function],
+        "insertFragment": [Function],
+        "insertNode": [Function],
+        "insertText": [Function],
+        "isInline": [Function],
+        "isVoid": [Function],
+        "marks": null,
+        "normalizeNode": [Function],
+        "onChange": [Function],
+        "operations": Array [],
+        "redo": [Function],
+        "removeMark": [Function],
+        "selection": null,
+        "setFragmentData": [Function],
+        "undo": [Function],
+      }
+    }
+    onChange={[Function]}
+    value={
+      Array [
+        Object {
+          "children": Array [
+            Object {
+              "text": "",
+            },
+          ],
+          "type": "paragraph",
+        },
+      ]
+    }
+  >
+    <styled.div>
+      <BlockButton
+        format="heading-two"
+      >
+        Heading
+      </BlockButton>
+      <MarkButton
+        format="bold"
+      >
+        <Styled(FormatBold) />
+      </MarkButton>
+      <MarkButton
+        format="italic"
+      >
+        <Styled(FormatItalic) />
+      </MarkButton>
+      <MarkButton
+        format="underline"
+      >
+        <Styled(FormatUnderlined) />
+      </MarkButton>
+      <styled.button
+        active={true}
+        data-tip="Start animation when cursor is on the text"
+        disabled={true}
+        onClick={[Function]}
+        type="button"
+      >
+        <Styled(Mouse) />
+      </styled.button>
+      <styled.button
+        active={false}
+        data-tip="Repeat animation infinitely"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <Styled(Repeat) />
+      </styled.button>
+      <styled.button
+        active={false}
+        data-tip="Start animation when text is in the screen"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        <Styled(Eye) />
+      </styled.button>
+    </styled.div>
+    <Editable
+      placeholder="Enter some rich text…"
+      renderElement={[Function]}
+      renderLeaf={[Function]}
+    />
+    <AnimationList />
+  </Slate>
+  <ReactTooltip
+    clickable={false}
+    insecure={true}
+    resizeHide={true}
+    wrapper="div"
+  />
+</Component>
+`;
