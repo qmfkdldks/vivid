@@ -35,18 +35,16 @@ const toggleMark = (editor, format) => {
 const MarkButton = ({ format, tooltip, children }) => {
   const editor = useSlate();
   return (
-    <>
-      <Button
-        active={isMarkActive(editor, format)}
-        onClick={(event) => {
-          event.preventDefault();
-          toggleMark(editor, format);
-        }}
-        data-tip={tooltip}
-      >
-        {children}
-      </Button>
-    </>
+    <Button
+      active={isMarkActive(editor, format)}
+      onClick={(event) => {
+        event.preventDefault();
+        toggleMark(editor, format);
+      }}
+      data-tip={tooltip}
+    >
+      {children}
+    </Button>
   );
 };
 

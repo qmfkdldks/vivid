@@ -5,10 +5,10 @@ import { createGlobalStyle } from 'styled-components'
 
 const App = () => {
   return (
-    <>
+    <div>
       <Header />
       <GlobalStyle />
-    </>
+    </div>
   )
 }
 

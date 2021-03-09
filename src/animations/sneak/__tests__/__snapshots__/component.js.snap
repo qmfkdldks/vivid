@@ -256,8 +256,8 @@ exports[`Sneak should render successfully 1`] = `
         "stop": Object {
           "opacity": 1,
           "rotate": 0,
-          "scaleX": 0,
-          "scaleY": 0,
+          "scaleX": 1,
+          "scaleY": 1,
           "x": 0,
           "y": 0,
         },

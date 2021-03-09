@@ -59,4 +59,18 @@ describe("withMode", () => {
       expect(mockStartFunction).toBeCalledWith("start");
     });
   });
+
+  describe("when mode is HOLD", () => {
+    it("calls useAnimation", () => {
+      const wrapper = mount(
+        <SneakWithMode mode={MODES.HOVER}>Hold</SneakWithMode>
+      );
+
+      expect(framerMotion.useAnimation).toBeCalled();
+      wrapper.find("span").first().simulate("mouseenter");
+      expect(mockStartFunction).toBeCalledWith("start");
+      wrapper.find("span").first().simulate("mouseleave");
+      expect(mockSetFunction).toBeCalledWith("stop");
+    });
+  });
 });

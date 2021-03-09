@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import PropTypes from "prop-types";
 import { Editable, withReact, Slate } from "slate-react";
 import { createEditor } from "slate";
 import { withHistory } from "slate-history";
@@ -22,7 +23,7 @@ import AnimationList from "../AnimationList";
 import { MODES } from "../withMode";
 import defaultTheme from "../../constants/theme";
 
-const VividEditor = ({ initialValue, theme }) => {
+const VividEditor = ({ initialValue, theme, onChange }) => {
   const [value, setValue] = useState(initialValue);
   const [mode, setMode] = useState(MODES.HOVER);
   const renderElement = useCallback((props) => <Element {...props} />, []);
@@ -36,7 +37,12 @@ const VividEditor = ({ initialValue, theme }) => {
       <Slate
         editor={editor}
         value={value}
-        onChange={(value) => setValue(value)}
+        onChange={(value) => {
+          if (onChange !== undefined) {
+            onChange(value, mode);
+          }
+          setValue(value);
+        }}
       >
         <Toolbar>
           <BlockButton format="heading-two">Heading</BlockButton>
@@ -87,6 +93,15 @@ const VividEditor = ({ initialValue, theme }) => {
       <ReactTooltip />
     </ThemeProvider>
   );
+};
+
+VividEditor.defaultProps = {
+  initialValue: [{ type: "paragraph", children: [{ text: "" }] }],
+};
+
+VividEditor.propTypes = {
+  initialValue: PropTypes.array,
+  onChange: PropTypes.func,
 };
 
 export default VividEditor;

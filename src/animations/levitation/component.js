@@ -61,8 +61,8 @@ const Levitation = ({ control, children, transition, ...props }) => {
 
   return (
     <Container {...props}>
-      {Array.from(children).map((value) => (
-        <Word key={value} animate={control} variants={rotate()}>
+      {Array.from(children).map((value, index) => (
+        <Word key={`${value}-${index}`} animate={control} variants={rotate()}>
           <Word animate={control} variants={up()}>
             <Word animate={control} variants={shake}>
               {value}

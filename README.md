@@ -1,17 +1,17 @@
-# vivid
+# Vivid-Editor
 
-> animated text editor for building alive text content
+> Animated text editor for building living text content
 
 [![NPM](https://img.shields.io/npm/v/vivid-editor.svg)](https://www.npmjs.com/package/vivid-editor)
 
-[GIF which shows the editor]
+![Vivid Editor](https://i.imgur.com/AO0RQLO.gif)
 
 Have you ever imagined a book that has words moving around and expressing their meaning visually through animation?
-
 Here we present a new text editor solution where end-users can write and read animated text contents.
+
 This package is backed by [slate.js](https://github.com/ianstormtaylor/slate)
 
-## Install
+# Install
 
 ```bash
 npm install --save vivid-editor
@@ -19,24 +19,41 @@ or
 yarn add vivid-editor
 ```
 
-## Quick Start
+# Quick Start
 
 ```jsx
-import React, { Component } from 'react'
+import React from "react";
+import { Editor } from "vivid-editor";
 
-import VividEditor from 'vivid'
-import 'vivid/dist/index.css'
+const App = () => {
+  const onChange = React.useCallback((value) => {
+    // When text content changes it will get called.
+    // Save the value to Local Storage.
+    const content = JSON.stringify(value);
+    console.log(content);
 
-class Example extends Component {
-  render() {
-    return <VividEditor />
-  }
-}
+    localStorage.setItem("content", content);
+  }, []);
+
+  return (
+    <div>
+      <Editor onChange={onChange} />
+    </div>
+  );
+};
 ```
 
 # Documentation
 
-Check out the documentation
+Check out the documentation. Upcoming...
+
+# Changelog
+
+## 1.1.0
+
+- Add customizable theme feature
+- Add onChange props that reacts to the content change
+- Button and color style updates
 
 # Contribution
 

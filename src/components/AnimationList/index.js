@@ -30,7 +30,7 @@ const AnimationList = () => {
         const Animation = animations[key];
         return (
           <MarkButton key={key} format={key}>
-            <Animation mode={MODES.HOVER}>{key}</Animation>
+            <Animation mode={MODES.HOLD}>{key}</Animation>
           </MarkButton>
         );
       })}
