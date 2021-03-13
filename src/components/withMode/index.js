@@ -20,7 +20,12 @@ export const MODES = {
  * @test
  * it should pass transition with loop: Infinity
  */
-export const Repeat = (AnimationComponent, props, animationControls, inViewProps) => {
+export const Repeat = (
+  AnimationComponent,
+  props,
+  animationControls,
+  inViewProps
+) => {
   return (
     <AnimationComponent
       control="start"
@@ -126,7 +131,6 @@ const Hold = (AnimationComponent, props, animationControls, inViewProps) => {
  * when mode does not match it should not call any function listed
  */
 const withMode = (AnimationComponent) => {
-
   const conditionalComponent = ({ mode, ...props }) => {
     const inViewProps = useInView({
       threshold: 0,
@@ -136,9 +140,19 @@ const withMode = (AnimationComponent) => {
 
     switch (mode) {
       case MODES.REPEAT:
-        return Repeat(AnimationComponent, props, animationControls, inViewProps);
+        return Repeat(
+          AnimationComponent,
+          props,
+          animationControls,
+          inViewProps
+        );
       case MODES.INVIEW:
-        return InView(AnimationComponent, props, animationControls, inViewProps);
+        return InView(
+          AnimationComponent,
+          props,
+          animationControls,
+          inViewProps
+        );
       case MODES.HOVER:
         return Hover(AnimationComponent, props, animationControls, inViewProps);
       case MODES.HOLD:
