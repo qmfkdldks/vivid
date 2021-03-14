@@ -20,7 +20,12 @@ export const MODES = {
  * @test
  * it should pass transition with loop: Infinity
  */
-export const Repeat = (AnimationComponent, props) => {
+export const Repeat = (
+  AnimationComponent,
+  props,
+  animationControls,
+  inViewProps
+) => {
   return (
     <AnimationComponent
       control="start"
@@ -44,10 +49,8 @@ export const Repeat = (AnimationComponent, props) => {
  * @test
  * it should pass "start" value to control props when inView is true otherwise should pass "stop"
  */
-const InView = (AnimationComponent, props) => {
-  const { ref, inView } = useInView({
-    threshold: 0,
-  });
+const InView = (AnimationComponent, props, animationControls, inViewProps) => {
+  const { ref, inView } = inViewProps;
 
   return (
     <span ref={ref}>
@@ -68,9 +71,7 @@ const InView = (AnimationComponent, props) => {
  * it should call animationControls start function onMouseEnter
  * it should pass control props to the animation component.
  */
-const Hover = (AnimationComponent, props) => {
-  const animationControls = useAnimation();
-
+const Hover = (AnimationComponent, props, animationControls, inViewProps) => {
   return (
     <span
       onMouseEnter={() => {
@@ -96,9 +97,7 @@ const Hover = (AnimationComponent, props) => {
  * it should call animationControls set stop onMouseLeave
  * it should reset animation when mouse leaves
  */
-const Hold = (AnimationComponent, props) => {
-  const animationControls = useAnimation();
-
+const Hold = (AnimationComponent, props, animationControls, inViewProps) => {
   return (
     <span
       onMouseEnter={() => {
@@ -133,15 +132,31 @@ const Hold = (AnimationComponent, props) => {
  */
 const withMode = (AnimationComponent) => {
   const conditionalComponent = ({ mode, ...props }) => {
+    const inViewProps = useInView({
+      threshold: 0,
+    });
+
+    const animationControls = useAnimation();
+
     switch (mode) {
       case MODES.REPEAT:
-        return Repeat(AnimationComponent, props);
+        return Repeat(
+          AnimationComponent,
+          props,
+          animationControls,
+          inViewProps
+        );
       case MODES.INVIEW:
-        return InView(AnimationComponent, props);
+        return InView(
+          AnimationComponent,
+          props,
+          animationControls,
+          inViewProps
+        );
       case MODES.HOVER:
-        return Hover(AnimationComponent, props);
+        return Hover(AnimationComponent, props, animationControls, inViewProps);
       case MODES.HOLD:
-        return Hold(AnimationComponent, props);
+        return Hold(AnimationComponent, props, animationControls, inViewProps);
       default:
         return <AnimationComponent {...props} />;
     }
