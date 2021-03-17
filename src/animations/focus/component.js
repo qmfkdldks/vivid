@@ -38,10 +38,6 @@ const Focus = ({ control, children, transition, ...props }) => {
 
 const Container = styled(motion.span)``;
 
-Focus.propTypes = {
-  children: PropTypes.string.isRequired,
-};
-
 Focus.displayName = "Focus";
 
 export default Focus;

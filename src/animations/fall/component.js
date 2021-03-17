@@ -64,13 +64,9 @@ const Fall = ({ control, children, transition, ...props }) => {
   );
 };
 
-const Container = styled(motion.div)`
+const Container = styled(motion.span)`
   display: inline-block;
 `;
-
-Fall.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Fall.displayName = "Fall";
 
