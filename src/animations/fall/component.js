@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const jump = (seed = 0) => {
   return [0, 0, -15, 0, -5, 0, 0];
@@ -64,13 +63,9 @@ const Fall = ({ control, children, transition, ...props }) => {
   );
 };
 
-const Container = styled(motion.div)`
+const Container = styled(motion.span)`
   display: inline-block;
 `;
-
-Fall.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Fall.displayName = "Fall";
 

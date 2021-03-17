@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -55,14 +54,27 @@ const shake = {
 };
 
 const Levitation = ({ control, children, transition, ...props }) => {
-  if (!(typeof children === "string" || children instanceof String)) {
-    return null;
+  let charecters = [];
+
+  if (typeof children === "string" || children instanceof String) {
+    charecters = children.split("");
+  } else {
+    let splitted = children.props.leaf.text.split("");
+
+    charecters = splitted.map((value) => {
+      return React.cloneElement(children, {
+        leaf: {
+          ...children.props.leaf,
+          text: value,
+        },
+      });
+    });
   }
 
   return (
     <Container {...props}>
-      {Array.from(children).map((value, index) => (
-        <Word key={`${value}-${index}`} animate={control} variants={rotate()}>
+      {Array.from(charecters).map((value, index) => (
+        <Word key={`levitation-${index}`} animate={control} variants={rotate()}>
           <Word animate={control} variants={up()}>
             <Word animate={control} variants={shake}>
               {value}
@@ -78,15 +90,11 @@ const Container = styled.span`
   padding-top: 50px;
 `;
 
-export const Word = styled(motion.div)`
+export const Word = styled(motion.span)`
   position: relative;
   display: inline-block;
   transform-origin: center;
 `;
-
-Levitation.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Levitation.displayName = "Levitation";
 

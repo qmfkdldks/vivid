@@ -2,6 +2,7 @@ import React from "react";
 import { Editor } from "slate";
 import { useSlate } from "slate-react";
 import { Button } from "./style";
+import animations from "../../animations";
 
 const isMarkActive = (editor, format) => {
   const marks = Editor.marks(editor);
@@ -14,6 +15,9 @@ const toggleMark = (editor, format) => {
   if (isActive) {
     Editor.removeMark(editor, format);
   } else {
+    Object.keys(animations).forEach((value) => {
+      Editor.removeMark(editor, value);
+    });
     Editor.addMark(editor, format, true);
   }
 };

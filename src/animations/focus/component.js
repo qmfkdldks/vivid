@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const blurVariants = {
   start: {
@@ -37,10 +36,6 @@ const Focus = ({ control, children, transition, ...props }) => {
 };
 
 const Container = styled(motion.span)``;
-
-Focus.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Focus.displayName = "Focus";
 

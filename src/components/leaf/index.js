@@ -22,16 +22,16 @@ import { MODES } from "../withMode";
  * when no element type was found, it renders `span`element
  */
 const Leaf = ({ attributes, children, mode, leaf }) => {
-  let animationKey;
-  if (
-    (animationKey = Object.keys(animations).find((key) =>
-      leaf.hasOwnProperty(key)
-    ))
-  ) {
+  let animationKey = Object.keys(animations).find((key) =>
+    leaf.hasOwnProperty(key)
+  );
+
+  if (animationKey) {
     const Animation = animations[animationKey];
-    return (
+
+    children = (
       <Animation mode={mode} {...attributes}>
-        {leaf.text}
+        {children}
       </Animation>
     );
   }

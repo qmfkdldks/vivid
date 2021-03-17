@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 const jump = (seed = 0) => {
   return [0, 0, -30, 0, -5, 0, 0];
@@ -71,7 +70,39 @@ const variants = {
   },
 };
 
+// Example of individual character animation
+// Checkout next link
+// https://github.com/ianstormtaylor/slate/blob/228f4fa94f61f42ca41feae2b3029ebb570e0480/packages/slate-react/src/components/string.tsx
+
 const Sneak = ({ control, children, transition, ...props }) => {
+  let firstCharecter;
+  let restCharacters;
+
+  if (typeof children === "string" || children instanceof String) {
+    firstCharecter = children.length ? children.charAt(0) : "";
+
+    restCharacters = children.length
+      ? children.substring(1, children.length)
+      : "";
+  } else {
+    firstCharecter = React.cloneElement(children, {
+      leaf: {
+        ...children.props.leaf,
+        text: children.props.leaf.text.substring(0, 1),
+      },
+    });
+
+    restCharacters = React.cloneElement(children, {
+      leaf: {
+        ...children.props.leaf,
+        text: children.props.leaf.text.substring(
+          1,
+          children.props.leaf.text.length
+        ),
+      },
+    });
+  }
+
   return (
     <Container {...props}>
       <Word
@@ -79,11 +110,9 @@ const Sneak = ({ control, children, transition, ...props }) => {
         variants={variants}
         transition={{ duration: 3, ...transition }}
       >
-        {children.length ? children.charAt(0) : ""}
+        {firstCharecter}
       </Word>
-      <span>
-        {children.length ? children.substring(1, children.length) : ""}
-      </span>
+      <span>{restCharacters}</span>
     </Container>
   );
 };
@@ -100,10 +129,6 @@ const Word = styled(motion.span)`
   padding: 0;
   padding-left: 50px;
 `;
-
-Sneak.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Sneak.displayName = "Sneak";
 
