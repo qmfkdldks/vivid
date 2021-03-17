@@ -79,7 +79,7 @@ const Sneak = ({ control, children, transition, ...props }) => {
   let firstCharecter;
   let restCharacters;
 
-  if (typeof children === "string") {
+  if (typeof children === "string" || children instanceof String) {
     firstCharecter = children.length ? children.charAt(0) : "";
 
     restCharacters = children.length

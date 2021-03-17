@@ -55,14 +55,27 @@ const shake = {
 };
 
 const Levitation = ({ control, children, transition, ...props }) => {
-  if (!(typeof children === "string" || children instanceof String)) {
-    return null;
+  let charecters = [];
+
+  if (typeof children === "string" || children instanceof String) {
+    charecters = children.split("");
+  } else {
+    let splitted = children.props.leaf.text.split("");
+
+    charecters = splitted.map((value) => {
+      return React.cloneElement(children, {
+        leaf: {
+          ...children.props.leaf,
+          text: value,
+        },
+      });
+    });
   }
 
   return (
     <Container {...props}>
-      {Array.from(children).map((value, index) => (
-        <Word key={`${value}-${index}`} animate={control} variants={rotate()}>
+      {Array.from(charecters).map((value, index) => (
+        <Word animate={control} variants={rotate()}>
           <Word animate={control} variants={up()}>
             <Word animate={control} variants={shake}>
               {value}
