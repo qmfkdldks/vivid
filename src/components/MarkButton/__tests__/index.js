@@ -7,4 +7,6 @@ describe("MarkButton", () => {
     //   const component = shallow(<MarkButton />);
     //   expect(component).toMatchSnapshot();
   });
+
+  it("should remove all previous animation marks", () => {});
 });

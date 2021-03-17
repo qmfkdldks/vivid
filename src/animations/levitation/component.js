@@ -74,7 +74,7 @@ const Levitation = ({ control, children, transition, ...props }) => {
   return (
     <Container {...props}>
       {Array.from(charecters).map((value, index) => (
-        <Word animate={control} variants={rotate()}>
+        <Word key={`levitation-${index}`} animate={control} variants={rotate()}>
           <Word animate={control} variants={up()}>
             <Word animate={control} variants={shake}>
               {value}
@@ -90,7 +90,7 @@ const Container = styled.span`
   padding-top: 50px;
 `;
 
-export const Word = styled(motion.div)`
+export const Word = styled(motion.span)`
   position: relative;
   display: inline-block;
   transform-origin: center;
