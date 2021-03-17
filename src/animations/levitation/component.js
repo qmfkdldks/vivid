@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 
 function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -96,10 +95,6 @@ export const Word = styled(motion.div)`
   display: inline-block;
   transform-origin: center;
 `;
-
-Levitation.propTypes = {
-  children: PropTypes.string.isRequired,
-};
 
 Levitation.displayName = "Levitation";
 
