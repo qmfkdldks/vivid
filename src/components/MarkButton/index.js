@@ -17,7 +17,7 @@ const toggleMark = (editor, format) => {
   } else {
     Object.keys(animations).forEach((value) => {
       Editor.removeMark(editor, value);
-    })
+    });
     Editor.addMark(editor, format, true);
   }
 };
